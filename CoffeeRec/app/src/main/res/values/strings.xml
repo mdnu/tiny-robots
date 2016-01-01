@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">CoffeeRec</string>
+    <string name="find_coffee">Get Coffee!</string>
+    <string name="types"></string>
+    <string-array name="coffee_flavors">
+        <item>Acidic - Washed Arabica(Above 4,000ft)</item>
+        <item>Mellow - Washed Arabica(Below 4,000ft)</item>
+        <item>Winey - Unwashed Arabica(Above 4,000ft)</item>
+        <item>Bland - Washed Arabica and Robusta (Below 2,000ft)</item>
+        <item>Sharp - Robusta (Below 2,000ft)</item>
+        <item>Soury - Unwashed Brazils (Above 2,000ft)</item>
+    </string-array>
+    <string name="action_settings">Settings</string>
+</resources>
