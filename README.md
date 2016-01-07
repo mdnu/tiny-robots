@@ -7,6 +7,7 @@ https://github.com/codepath/android_guides/wiki/
   1. CoffeeRec
     * Basic single activity
     * Menu design with basic activity code
+    * Introduces Spinner and TextView
   2. Messenger
     * Two-activity app example
     * Introduces explicit and implicit intents
