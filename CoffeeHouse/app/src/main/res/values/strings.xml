@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">CoffeeHouse</string>
+    <string name="action_settings">Settings</string>
+    <string name="logo">Coffee House Logo</string>
+    <string-array name="options">
+        <item>Coffee</item>
+        <item>A La Carte</item>
+        <item>About</item>
+    </string-array>
+    <string name="title_activity_coffee_category">Coffee</string>
+    <string name="title_activity_coffee">CoffeeActivity</string>
+    <string name="title_activity_carte">CarteActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
+</resources>
