@@ -20,3 +20,5 @@ https://github.com/codepath/android_guides/wiki/
     * Covers basic IO with exception handling
     * Introduces item adapters
     * Introduces event listeners
+  5. CoffeeHouse
+  6. CoffeeQuiz
