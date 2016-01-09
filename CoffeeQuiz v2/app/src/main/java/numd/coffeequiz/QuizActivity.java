@@ -7,6 +7,7 @@ package numd.coffeequiz;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,10 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
     private TextView mQuestionTextView;
+    // Add TAG constant.
+    private static final String TAG = "QuizActivity";
+    // Add key index for saving the instance state.
+    private static final String KEY_INDEX = "index";
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_sumatra, true),
@@ -58,12 +63,49 @@ public class QuizActivity extends AppCompatActivity {
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
+    /** Override extra methods below, for logging purposes.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause() called");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume() called");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
+    }
+    /** Complete.
+     */
+
     // Method #1 - onCreate(Bundle)
     // Called when an instance of the activity subclass is created.
     // Gets the UI for the activity.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Call Log.d to log a message.
+        Log.d(TAG, "onCreate(Bundle) called");
 
         /**
          * Below code will inflate the VIEW layer widgets
@@ -149,11 +191,28 @@ public class QuizActivity extends AppCompatActivity {
         /** Complete.
          */
 
+        // Check for savedInstanceState. If exists, assign to mCurrentIndex.
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
+
         // Gets the first question.
         updateQuestion();
     }
 
+    /** Complete.
+     */
+
     // Method #2
+    // Saves instance state.
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
+
+    // Method #3
     // Ignore for now.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,7 +221,7 @@ public class QuizActivity extends AppCompatActivity {
         return true;
     }
 
-    // Method #3
+    // Method #4
     // Ignore for now.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
