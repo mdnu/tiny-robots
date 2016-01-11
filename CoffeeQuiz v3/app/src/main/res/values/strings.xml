@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CoffeeQuiz</string>
+    <string name="action_settings">Settings</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="next_button">Next</string>
+    <string name="previous_button">Prev</string>
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect_toast">Incorrect!</string>
+    <string name="question_sumatra">Sumatran Mandheling has a more earthy flavour compared to Jamaican Blue Mountain.</string>
+    <string name="question_americano">A Cafe Americano requires more than just an espresso.</string>
+    <string name="question_macchiato">A Macchiato uses unsweetened plain milk as a base.</string>
+    <string name="question_french">A french press provides better essential oil extraction compared to drip-based methods.</string>
+    <string name="question_flat">Con Leche and Flat White essentially contain the same ingredients.</string>
+    <string name="warning_text">Are you sure you want to see the answer?</string>
+    <string name="show_answer_button">Show Answer</string>
+    <string name="cheat_button">See Answer</string>
+    <string name="judgement_toast">Cheater.</string>
+    <string name="title_activity_cheat">Cheat</string>
+</resources>
