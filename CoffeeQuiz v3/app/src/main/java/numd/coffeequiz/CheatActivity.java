@@ -3,16 +3,11 @@ package numd.coffeequiz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class CheatActivity extends AppCompatActivity {
 
@@ -27,13 +22,11 @@ public class CheatActivity extends AppCompatActivity {
     // Add boolean variable mAnswerIsTrue, whose value is retrieved from the intent
     // sent by QuizActivity
     private boolean mAnswerIsTrue;
-
     private TextView mAnswerTextView;
     private Button mShowAnswer;
     private boolean mPressedShowAnswer; // Challenge #1
 
-    // Static method which allows us to create a properly configured Intent
-    // with the proper 'extras'.
+    // Static method which allows us to create a properly configured Intent with the proper extras.
     public static Intent newIntent(Context packageContext, boolean answerIsTrue) {
         Intent i = new Intent(packageContext, CheatActivity.class);
         i.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
@@ -69,23 +62,22 @@ public class CheatActivity extends AppCompatActivity {
                 } else {
                     mAnswerTextView.setText(R.string.false_button);
                 }
+
                 // Confirm that the user cheated.
                 mPressedShowAnswer = true; // Challenge #1
                 setAnswerShownResult(mPressedShowAnswer);
             }
         });
 
-        // Challenge #1
-        // Check if a savedInstanceState exists, if so, get the value of mPressedShowAnswer.
+        // Challenge #1, Check if a savedInstanceState exists, if so get the value of mPressedShowAnswer.
         if (savedInstanceState != null) {
             mPressedShowAnswer = savedInstanceState.getBoolean(KEY_CHEATED);
             setAnswerShownResult(mPressedShowAnswer);
         }
     }
 
-    // Challenge #1
-    // Override onSaveInstanceState(...) to include the mPressedShowAnswer boolean
-    // with the bundle.
+    // Challenge #1,
+    // Override onSaveInstanceState(...) to include the mPressedShowAnswer boolean with the bundle.
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -96,11 +88,11 @@ public class CheatActivity extends AppCompatActivity {
     // Helper method to confirm user cheated.
     private void setAnswerShownResult(boolean isAnswerShown) {
         Intent data = new Intent();
+
         // intent puts the boolean result taken from the method's input as an extra.
         data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
         setResult(RESULT_OK, data);
         // the onActivityResult method in QuizActivity will take the request code, result code
         // and the intent data.
     }
-
 }

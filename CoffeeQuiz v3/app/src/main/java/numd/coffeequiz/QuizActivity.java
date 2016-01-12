@@ -26,6 +26,7 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton mPrevButton;
     private Button mCheatButton;
     private TextView mQuestionTextView;
+
     // Add TAG constant.
     private static final String TAG = "QuizActivity";
     // Add key 'index' for saving the instance state's index.
@@ -34,7 +35,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_CHEAT = "cheated"; // Challenge #2
     // Add request code for CheatActivity
     private static final int REQUEST_CODE_CHEAT = 0;
-
+    private int mCurrentIndex = 0;
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_sumatra, true),
             new Question(R.string.question_americano, true),
@@ -43,7 +44,6 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_flat, true),
     };
 
-    private int mCurrentIndex = 0;
     // Holds the value which CheatActivity passes
     private boolean[] mIsCheater = new boolean[mQuestionBank.length]; // Challenge #3
 
@@ -74,10 +74,12 @@ public class QuizActivity extends AppCompatActivity {
                 messageResId = R.string.incorrect_toast;
             }
         }
+
         // Insert a toast (use code completion to use makeText method)
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
+    // Start logging methods.
     @Override
     public void onStart() {
         super.onStart();
@@ -107,10 +109,10 @@ public class QuizActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
     }
+    // End logging methods.
 
     // Method #1 - onCreate(Bundle)
-    // Called when an instance of the activity subclass is created.
-    // Gets the UI for the activity.
+    // Called when an instance of the activity subclass is created. Gets the UI for the activity.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,17 +124,18 @@ public class QuizActivity extends AppCompatActivity {
         // on the screen. When a layout is inflated, each widget in it
         // is instantiated as defined by its XML attributes.
         setContentView(R.layout.activity_quiz);
+
         // To access a resource (like activity_quiz.xml above) in code, you use its
         // resource ID. In this case, it's 'R.layout.activity_quiz'.
 
         // Get references to inflated widgets using their resource IDs.
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
-
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // increment the count by 1 mod the length of the question bank.
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+
                 // Gets the next question.
                 updateQuestion();
             }
@@ -169,6 +172,7 @@ public class QuizActivity extends AppCompatActivity {
                 // decrement the count by 1 mod the length of the question bank.
                 // Notice how the 'decrement' is always non-negative
                 mCurrentIndex = (mCurrentIndex + (mQuestionBank.length - 1)) % mQuestionBank.length;
+
                 // Gets the next question.
                 updateQuestion();
             }
@@ -181,6 +185,7 @@ public class QuizActivity extends AppCompatActivity {
                 // increment the count by 1 mod the length of the question bank.
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 mIsCheater[mCurrentIndex] = false; // Challenge #3
+
                 // Gets the next question.
                 updateQuestion();
             }
@@ -194,8 +199,10 @@ public class QuizActivity extends AppCompatActivity {
                 // Create an intent to tell the ActivityManager to start CheatActivity.
                 // ActivityManager checks the manifest for a class named 'CheatActivity'
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+
                 // The 'extra' here is the boolean value above. We send this to CheatActivity.
                 Intent i = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
+
                 //startActivity(i);
                 // Starts activity like above, but also requests for verification from CheatActivity
                 // for whether or not the user cheated.
@@ -208,6 +215,7 @@ public class QuizActivity extends AppCompatActivity {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             mIsCheater = savedInstanceState.getBooleanArray(KEY_CHEAT); // Challenge #3
         }
+
         // Gets the first question.
         updateQuestion();
     }
@@ -226,8 +234,7 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    // Method #2
-    // Saves instance state.
+    // Method #2, Saves instance state.
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -237,7 +244,6 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     // Method #3
-    // Ignore for now.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -246,7 +252,6 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     // Method #4
-    // Ignore for now.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
