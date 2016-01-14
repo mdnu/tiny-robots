@@ -21,4 +21,6 @@ https://github.com/codepath/android_guides/wiki/
     * Introduces item adapters
     * Introduces event listeners
   5. CoffeeHouse
-  6. CoffeeQuiz
+  6.1 CoffeeQuiz
+  6.2 CoffeeQuiz v.2
+  6.3 CoffeeQuiz v.3
