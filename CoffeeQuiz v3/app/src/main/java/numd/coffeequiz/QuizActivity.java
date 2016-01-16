@@ -27,15 +27,6 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton mPrevButton;
     private Button mCheatButton;
     private TextView mQuestionTextView;
-
-    // Add TAG constant.
-    private static final String TAG = "QuizActivity";
-    // Add key 'index' for saving the instance state's index.
-    private static final String KEY_INDEX = "index";
-    // Add key 'cheat' for saving the instance state's 'cheat' boolean.
-    private static final String KEY_CHEAT = "cheated"; // Challenge #2
-    // Add request code for CheatActivity
-    private static final int REQUEST_CODE_CHEAT = 0;
     private int mCurrentIndex = 0;
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_sumatra, true),
@@ -44,41 +35,16 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_french, true),
             new Question(R.string.question_flat, true),
     };
-
     // Holds the value which CheatActivity passes
-    private boolean[] mIsCheater = new boolean[mQuestionBank.length]; // Challenge #3
-
-    // Helper method which updates questions in question text view.
-    private void updateQuestion() {
-        // Logging exceptions in method #1 (Optional, for debugging purposes).
-        //Log.d(TAG, "Updating question text for question #" + mCurrentIndex, new Exception());
-
-        // Get reference ID to question from the Question array.
-        int question = mQuestionBank[mCurrentIndex].getTextResId();
-        // Sets current question in question_text_view to the question associated with
-        // the above reference.
-        mQuestionTextView.setText(question);
-    }
-
-    // Helper method for checking answer result.
-    private void checkAnswer(boolean userPressedTrue) {
-        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
-
-        int messageResId = 0;
-        if (mIsCheater[mCurrentIndex]) {
-            // Sets if user cheated.
-            messageResId = R.string.judgement_toast;
-        } else {
-            if (userPressedTrue == answerIsTrue) {
-                messageResId = R.string.correct_toast;
-            } else {
-                messageResId = R.string.incorrect_toast;
-            }
-        }
-
-        // Insert a toast (use code completion to use makeText method)
-        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
-    }
+    private boolean[] mIsCheater = new boolean[mQuestionBank.length];
+    // Add TAG constant.
+    private static final String TAG = "QuizActivity";
+    // Add key 'index' for saving the instance state's index.
+    private static final String KEY_INDEX = "index";
+    // Add key 'cheat' for saving the instance state's 'cheat' boolean.
+    private static final String KEY_CHEAT = "cheated"; // Challenge #2
+    // Add request code for CheatActivity
+    private static final int REQUEST_CODE_CHEAT = 0;
 
     // Start logging methods.
     @Override
@@ -111,6 +77,40 @@ public class QuizActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy() called");
     }
     // End logging methods.
+
+    // Helper method which updates questions in question text view.
+    private void updateQuestion() {
+        // Logging exceptions in method #1 (Optional, for debugging purposes).
+        //Log.d(TAG, "Updating question text for question #" + mCurrentIndex, new Exception());
+
+        // Get reference ID to question from the Question array.
+        int question = mQuestionBank[mCurrentIndex].getTextResId();
+        // Sets current question in question_text_view to the question associated with
+        // the above reference.
+        mQuestionTextView.setText(question);
+    }
+
+
+
+    // Helper method for checking answer result.
+    private void checkAnswer(boolean userPressedTrue) {
+        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+
+        int messageResId = 0;
+        if (mIsCheater[mCurrentIndex]) {
+            // Sets if user cheated.
+            messageResId = R.string.judgement_toast;
+        } else {
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.correct_toast;
+            } else {
+                messageResId = R.string.incorrect_toast;
+            }
+        }
+        // Insert a toast (use code completion to use makeText method)
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
+    }
+
 
     // Called when an instance of the activity subclass is created. Gets the UI for the activity.
     @Override
@@ -220,6 +220,7 @@ public class QuizActivity extends AppCompatActivity {
         updateQuestion();
     }
 
+    // Method which decodes the result intent and extras from CheatActivity.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) {
@@ -243,6 +244,7 @@ public class QuizActivity extends AppCompatActivity {
         savedInstanceState.putBooleanArray(KEY_CHEAT, mIsCheater); // Challenge #2, #3
     }
 
+    // Ignore for now.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -250,6 +252,7 @@ public class QuizActivity extends AppCompatActivity {
         return true;
     }
 
+    // Ignore for now.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

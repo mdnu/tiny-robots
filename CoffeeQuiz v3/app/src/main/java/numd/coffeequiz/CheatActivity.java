@@ -11,6 +11,12 @@ import android.widget.TextView;
 
 public class CheatActivity extends AppCompatActivity {
 
+    // Add boolean variable mAnswerIsTrue, whose value is retrieved from the intent
+    // sent by QuizActivity
+    private boolean mAnswerIsTrue;
+    private TextView mAnswerTextView;
+    private Button mShowAnswer;
+    private boolean mPressedShowAnswer;
     // Add TAG constant.
     private static final String TAG = "CheatActivity";
     // Add key for CheatActivity
@@ -19,12 +25,6 @@ public class CheatActivity extends AppCompatActivity {
     private static final String EXTRA_ANSWER_SHOWN = "numd.coffeequiz.answer_shown";
     // Add a result key for whether user cheated.
     private static final String KEY_CHEATED = "cheated";
-    // Add boolean variable mAnswerIsTrue, whose value is retrieved from the intent
-    // sent by QuizActivity
-    private boolean mAnswerIsTrue;
-    private TextView mAnswerTextView;
-    private Button mShowAnswer;
-    private boolean mPressedShowAnswer;
 
     // Static method which allows us to create a properly configured Intent with the proper extras.
     public static Intent newIntent(Context packageContext, boolean answerIsTrue) {
