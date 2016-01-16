@@ -22,3 +22,6 @@ https://github.com/codepath/android_guides/wiki/
     * Introduces event listeners
   5. CoffeeHouse
   6. CoffeeQuiz
+  7. CoffeeQuiz v2
+  8. CoffeeQuiz v3
+
