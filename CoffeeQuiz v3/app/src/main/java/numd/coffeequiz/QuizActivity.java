@@ -90,8 +90,6 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView.setText(question);
     }
 
-
-
     // Helper method for checking answer result.
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
@@ -110,7 +108,6 @@ public class QuizActivity extends AppCompatActivity {
         // Insert a toast (use code completion to use makeText method)
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
-
 
     // Called when an instance of the activity subclass is created. Gets the UI for the activity.
     @Override
