@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CoffeeJournal</string>
+    <string name="action_settings">Settings</string>
+    <string name="coffee_title_hint">Enter a title for your coffee-tasting project.</string>
+</resources>
