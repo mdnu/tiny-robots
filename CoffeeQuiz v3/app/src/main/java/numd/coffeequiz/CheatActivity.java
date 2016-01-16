@@ -18,13 +18,13 @@ public class CheatActivity extends AppCompatActivity {
     // Add result key for whether the answer was shown.
     private static final String EXTRA_ANSWER_SHOWN = "numd.coffeequiz.answer_shown";
     // Add a result key for whether user cheated.
-    private static final String KEY_CHEATED = "cheated"; // Challenge #1
+    private static final String KEY_CHEATED = "cheated";
     // Add boolean variable mAnswerIsTrue, whose value is retrieved from the intent
     // sent by QuizActivity
     private boolean mAnswerIsTrue;
     private TextView mAnswerTextView;
     private Button mShowAnswer;
-    private boolean mPressedShowAnswer; // Challenge #1
+    private boolean mPressedShowAnswer;
 
     // Static method which allows us to create a properly configured Intent with the proper extras.
     public static Intent newIntent(Context packageContext, boolean answerIsTrue) {
@@ -69,14 +69,13 @@ public class CheatActivity extends AppCompatActivity {
             }
         });
 
-        // Challenge #1, Check if a savedInstanceState exists, if so get the value of mPressedShowAnswer.
+        // Check if a savedInstanceState exists, if so get the value of mPressedShowAnswer.
         if (savedInstanceState != null) {
             mPressedShowAnswer = savedInstanceState.getBoolean(KEY_CHEATED);
             setAnswerShownResult(mPressedShowAnswer);
         }
     }
 
-    // Challenge #1,
     // Override onSaveInstanceState(...) to include the mPressedShowAnswer boolean with the bundle.
     @Override
     protected void onSaveInstanceState(Bundle outState) {

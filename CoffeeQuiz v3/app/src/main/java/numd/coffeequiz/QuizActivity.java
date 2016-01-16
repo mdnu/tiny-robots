@@ -1,4 +1,5 @@
 package numd.coffeequiz;
+
 /**
  * CONTROLLER layer
  *
@@ -47,7 +48,7 @@ public class QuizActivity extends AppCompatActivity {
     // Holds the value which CheatActivity passes
     private boolean[] mIsCheater = new boolean[mQuestionBank.length]; // Challenge #3
 
-    // Helper method #1, updates questions in question text view.
+    // Helper method which updates questions in question text view.
     private void updateQuestion() {
         // Logging exceptions in method #1 (Optional, for debugging purposes).
         //Log.d(TAG, "Updating question text for question #" + mCurrentIndex, new Exception());
@@ -59,7 +60,7 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView.setText(question);
     }
 
-    // Helper method #2
+    // Helper method for checking answer result.
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
@@ -111,7 +112,6 @@ public class QuizActivity extends AppCompatActivity {
     }
     // End logging methods.
 
-    // Method #1 - onCreate(Bundle)
     // Called when an instance of the activity subclass is created. Gets the UI for the activity.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,11 +230,11 @@ public class QuizActivity extends AppCompatActivity {
             if (data == null) {
                 return;
             }
-            mIsCheater[mCurrentIndex] = CheatActivity.wasAnswerShown(data); // Challenge #3
+            mIsCheater[mCurrentIndex] = CheatActivity.wasAnswerShown(data);
         }
     }
 
-    // Method #2, Saves instance state.
+    // Saves instance state.
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -243,7 +243,6 @@ public class QuizActivity extends AppCompatActivity {
         savedInstanceState.putBooleanArray(KEY_CHEAT, mIsCheater); // Challenge #2, #3
     }
 
-    // Method #3
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -251,7 +250,6 @@ public class QuizActivity extends AppCompatActivity {
         return true;
     }
 
-    // Method #4
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
