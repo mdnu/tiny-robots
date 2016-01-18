@@ -24,4 +24,5 @@ https://github.com/codepath/android_guides/wiki/
   6. CoffeeQuiz
   7. CoffeeQuiz v2
   8. CoffeeQuiz v3
+  9. CoffeeJournal
 
