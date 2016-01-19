@@ -21,8 +21,17 @@ https://github.com/codepath/android_guides/wiki/
     * Introduces item adapters
     * Introduces event listeners
   5. CoffeeHouse
+    * Introduces intents.
   6. CoffeeQuiz
+    * Introduces MVC design pattern.
+    * More on intents.
+    * More on listeners.
   7. CoffeeQuiz v2
+    * Introduces runtime configuration-change handling.
+    * Introduces event-logging.
+    * In-depth coverage of the activity lifecycle.
   8. CoffeeQuiz v3
+    * In-depth coverage of instance states.
+    * In-depth coverage of intents and intent-extras.
   9. CoffeeJournal
 
