@@ -1,5 +1,10 @@
 package numd.coffeejournal;
 
+import android.content.Context;
+import java.text.DateFormat;
+
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -15,11 +20,33 @@ public class Coffee {
 
     private UUID mId;
     private String mTitle;
+    private Date mDate;
+    private boolean mComplete;
 
     // Constructor
     public Coffee() {
-        // Generate unique identifier
+        // Generate unique identifier.
         mId = UUID.randomUUID();
+        // Initialize default date.
+        mDate = new Date();
+    }
+
+    public boolean isComplete() {
+        return mComplete;
+    }
+
+    public void setComplete(boolean complete) {
+        mComplete = complete;
+    }
+
+    public Date getDate() {
+        //DateFormat dateFormat = android.text.format.DateFormat.getLongDateFormat(context);
+        //String mFormatDate = dateFormat.format(mDate);
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
     }
 
     public String getTitle() {

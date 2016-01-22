@@ -2,4 +2,7 @@
     <string name="app_name">CoffeeJournal</string>
     <string name="action_settings">Settings</string>
     <string name="coffee_title_hint">Enter a title for your coffee-tasting project.</string>
+    <string name="coffee_title_label">Project Title</string>
+    <string name="coffee_details_label">Coffee Details</string>
+    <string name="coffee_completed_label">Completed</string>
 </resources>
