@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * model layer
+ * model layer (I of II)
  *
  * Creates model 'coffee' objects by getting a random ID for each one,
  * and getting/setting a name for each one.

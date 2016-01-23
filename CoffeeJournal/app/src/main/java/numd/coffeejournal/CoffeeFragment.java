@@ -17,7 +17,7 @@ import android.text.format.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
- * controller layer (II of II)
+ * controller layer (II of IV)
  *
  * Presents details of a coffee-tasting journal entry, and allows
  * the user to update these details.
