@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import java.util.List;
 
 /**
@@ -48,7 +48,8 @@ public class CoffeeListFragment extends Fragment {
 
     // 'CoffeeHolder' ViewHolder inner class.
     // Retrieve data from list_item_coffee.xml
-    private class CoffeeHolder extends RecyclerView.ViewHolder {
+    // Implement View.OnClickListener to listen for presses.
+    private class CoffeeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
@@ -58,6 +59,8 @@ public class CoffeeListFragment extends Fragment {
         // Wire up the views.
         public CoffeeHolder(View itemView) {
             super(itemView);
+            // Set CoffeeHolder as the receiver for click events.
+            itemView.setOnClickListener(this);
             mTitleTextView = (TextView)itemView.findViewById(R.id.list_item_coffee_title_text_view);
             mDateTextView = (TextView)itemView.findViewById(R.id.list_item_coffee_date_text_view);
             mCompleteCheckBox = (CheckBox)itemView.findViewById(R.id.list_item_coffee_complete_check_box);
@@ -70,6 +73,13 @@ public class CoffeeListFragment extends Fragment {
             mDateTextView.setText(mCoffee.getDate().toString());
             mCompleteCheckBox.setChecked(mCoffee.isComplete());
         }
+
+        // Set up toast for onClick press.
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getActivity(), mCoffee.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     // 'CoffeeAdapter' adapter inner class.
@@ -111,6 +121,5 @@ public class CoffeeListFragment extends Fragment {
         }
 
     }
-
 
 }

@@ -1,7 +1,6 @@
 package numd.coffeejournal;
 
 import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +8,9 @@ import java.util.UUID;
 /**
  *
  * model layer (II of II)
+ *
+ * singleton class. functions as the owner of the coffee data
+ * provides a way to pass this data between controller classes.
  *
  * Created by m on 22/01/2016.
  */
@@ -33,7 +35,7 @@ public class CoffeeBar {
     private CoffeeBar(Context context) {
         mCoffees = new ArrayList<>();
         // Generate 100 Coffees.
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 11; i++) {
             Coffee coffee = new Coffee();
             coffee.setTitle("Coffee #" + i);
             coffee.setComplete(i % 2 == 0); // Take only even arguments.
