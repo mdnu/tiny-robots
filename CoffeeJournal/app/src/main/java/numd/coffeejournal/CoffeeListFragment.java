@@ -1,5 +1,6 @@
 package numd.coffeejournal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,12 +39,25 @@ public class CoffeeListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         CoffeeBar coffeeBar = CoffeeBar.get(getActivity());
         List<Coffee> coffees = coffeeBar.getCoffees();
 
-        mAdapter = new CoffeeAdapter(coffees);
-        mCoffeeRecyclerView.setAdapter(mAdapter);
+        //mAdapter = new CoffeeAdapter(coffees);
+        //mCoffeeRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = new CoffeeAdapter(coffees);
+            mCoffeeRecyclerView.setAdapter(mAdapter);
+        } else {
+            // updates the main list fragment if the adapter contents have changed.
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     // 'CoffeeHolder' ViewHolder inner class.
@@ -77,7 +91,11 @@ public class CoffeeListFragment extends Fragment {
         // Set up toast for onClick press.
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(), mCoffee.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), mCoffee.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+
+            // Start CoffeeActivity using an intent.
+            Intent intent = CoffeeActivity.newIntent(getActivity(), mCoffee.getId());
+            startActivity(intent);
         }
 
     }

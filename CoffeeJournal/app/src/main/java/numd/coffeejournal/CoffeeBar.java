@@ -34,10 +34,10 @@ public class CoffeeBar {
     // Other classes unable to create CoffeeBar object.
     private CoffeeBar(Context context) {
         mCoffees = new ArrayList<>();
-        // Generate 100 Coffees.
-        for (int i = 0; i < 11; i++) {
+        // Generate 4 sample Coffees.
+        for (int i = 0; i < 4; i++) {
             Coffee coffee = new Coffee();
-            coffee.setTitle("Coffee #" + i);
+            coffee.setTitle("Coffee #" + (i+1));
             coffee.setComplete(i % 2 == 0); // Take only even arguments.
             mCoffees.add(coffee);
         }
