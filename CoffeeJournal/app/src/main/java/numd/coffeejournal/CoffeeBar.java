@@ -23,6 +23,7 @@ public class CoffeeBar {
     // Pass in 'Context' object.
     // If our CoffeeBar object is empty, create a new one,
     // else return the existing one.
+
     public static CoffeeBar get(Context context) {
         if (sCoffeeBar == null) {
             sCoffeeBar = new CoffeeBar(context);
@@ -32,6 +33,7 @@ public class CoffeeBar {
 
     // Private constructor.
     // Other classes unable to create CoffeeBar object.
+
     private CoffeeBar(Context context) {
         mCoffees = new ArrayList<>();
         // Generate 4 sample Coffees.
@@ -46,6 +48,7 @@ public class CoffeeBar {
     // 'getCoffee' method.
     // Input an id. Search for all coffee objects in list of coffees,
     // If list entry matches id, then return this list entry coffee object.
+
     public Coffee getCoffee(UUID id) {
         for (Coffee coffee: mCoffees) {
             if (coffee.getId().equals(id)) {

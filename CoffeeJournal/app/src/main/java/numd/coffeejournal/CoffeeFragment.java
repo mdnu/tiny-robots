@@ -37,10 +37,11 @@ public class CoffeeFragment extends Fragment {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
     private java.text.DateFormat mTimeFormat;
 
-    // add Static method newInstance() to Fragment class.
+    // Add Static method newInstance() to Fragment class.
     // Creates fragment instance, bundles up and sets its arguments.
-    // instead of calling the constructor, the hosting activity calls this newInstance()
+    // Instead of calling the constructor, the hosting activity calls this newInstance()
     // to get an instance of this fragment.
+
     public static CoffeeFragment newInstance(UUID coffeeId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_COFFEE_ID, coffeeId);
@@ -52,6 +53,7 @@ public class CoffeeFragment extends Fragment {
 
     // Public onCreate method (as opposed to protected)
     // so that any activity hosting the fragment can call it.
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

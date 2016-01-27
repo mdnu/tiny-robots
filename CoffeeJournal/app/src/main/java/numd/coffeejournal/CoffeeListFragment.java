@@ -28,6 +28,8 @@ public class CoffeeListFragment extends Fragment {
     // Hook up the RecyclerView in fragment_coffee_list.xml to CoffeeListFragment.
     private RecyclerView mCoffeeRecyclerView;
     private CoffeeAdapter mAdapter;
+    // Challenge
+    private int mLastAdapterClickPosition = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,8 +57,14 @@ public class CoffeeListFragment extends Fragment {
             mAdapter = new CoffeeAdapter(coffees);
             mCoffeeRecyclerView.setAdapter(mAdapter);
         } else {
-            // updates the main list fragment if the adapter contents have changed.
-            mAdapter.notifyDataSetChanged();
+            if (mLastAdapterClickPosition < 0) {
+                // updates the main list fragment if the adapter contents have changed.
+                // 'else' logic: if position has changed, reload the last adapter position.
+                mAdapter.notifyDataSetChanged();
+            } else {
+                mAdapter.notifyItemChanged(mLastAdapterClickPosition);
+                mLastAdapterClickPosition = -1;
+            }
         }
     }
 
@@ -94,6 +102,8 @@ public class CoffeeListFragment extends Fragment {
             //Toast.makeText(getActivity(), mCoffee.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
 
             // Start CoffeeActivity using an intent.
+            // Get position of item. We use this in updateUI() method logic.
+            mLastAdapterClickPosition = getAdapterPosition();
             Intent intent = CoffeeActivity.newIntent(getActivity(), mCoffee.getId());
             startActivity(intent);
         }
@@ -112,6 +122,7 @@ public class CoffeeListFragment extends Fragment {
 
         // 'onCreateViewHolder'
         // called by the RecyclerView when it needs a new View to display an item.
+
         @Override
         public CoffeeHolder onCreateViewHolder(ViewGroup parent, int ViewType) {
             // Create a View, inflated from an android library layout, and wrap it in a ViewHolder.
@@ -120,9 +131,10 @@ public class CoffeeListFragment extends Fragment {
             return new CoffeeHolder(view);
         }
 
-        // onBindViewHolder
-        // binds a ViewHolder's View to model object.
+        // Method onBindViewHolder.
+        // Binds a ViewHolder's View to model object.
         // Takes as input a ViewHolder and a position in the data set.
+
         @Override
         public void onBindViewHolder(CoffeeHolder holder, int position) {
             // Use position to find correct model data.
