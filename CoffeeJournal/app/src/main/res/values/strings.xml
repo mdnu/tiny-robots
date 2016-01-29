@@ -5,4 +5,5 @@
     <string name="coffee_title_label">Project Title</string>
     <string name="coffee_details_label">Coffee Details</string>
     <string name="coffee_completed_label">Completed</string>
+    <string name="date_picker_title">Date of order:</string>
 </resources>

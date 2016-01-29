@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ public class CoffeeListFragment extends Fragment {
     private CoffeeAdapter mAdapter;
     // Challenge
     private int mLastAdapterClickPosition = -1;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,7 +94,7 @@ public class CoffeeListFragment extends Fragment {
         public void bindCoffee(Coffee coffee) {
             mCoffee = coffee;
             mTitleTextView.setText(mCoffee.getTitle());
-            mDateTextView.setText(mCoffee.getDate().toString());
+            mDateTextView.setText(simpleDateFormat.format(mCoffee.getDate()) + ". " + DateFormat.format("h:mm a", mCoffee.getDate()));
             mCompleteCheckBox.setChecked(mCoffee.isComplete());
         }
 

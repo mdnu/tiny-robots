@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
  *
  * controller layer (III of IV)
  *
- * extends the 'SingleFragmentActivity' superclass.
+ * The launcher activity (first thing launched).
+ * HOSTS the CoffeeListFragment.
+ * Extends SingleFragmentActivity, so inherits its onCreate method,
+ * which inflates the activity view and creates a fragment manager for it.
  *
  * Created by m on 22/01/2016.
  */

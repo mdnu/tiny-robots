@@ -1,8 +1,10 @@
 package numd.coffeejournal;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -13,8 +15,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.text.format.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -29,13 +31,17 @@ import java.util.UUID;
 public class CoffeeFragment extends Fragment {
 
     private static final String ARG_COFFEE_ID = "whatever";
+    private static final String DIALOG_DATE = "whatever";
+    private static final String DIALOG_TIME = "whatever";
+    private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_TIME = 1;
 
     private Coffee mCoffee;
     private EditText mTitleField;
     private Button mDateButton;
+    private Button mTimeButton;
     private CheckBox mCompleteCheckBox;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
-    private java.text.DateFormat mTimeFormat;
 
     // Add Static method newInstance() to Fragment class.
     // Creates fragment instance, bundles up and sets its arguments.
@@ -92,13 +98,42 @@ public class CoffeeFragment extends Fragment {
             }
         });
 
-        mTimeFormat = android.text.format.DateFormat.getTimeFormat(this.getActivity());
-        String time = mTimeFormat.format(mCoffee.getDate());
         // Get reference to button XML object and set button text.
+        // Show the DialogFragment
         mDateButton = (Button)v.findViewById(R.id.coffee_date);
-        mDateButton.setText(simpleDateFormat.format(mCoffee.getDate()) + ". " + time);
+        updateDate();
         // Default set to disabled state.
-        mDateButton.setEnabled(false);
+        //mDateButton.setEnabled(false);
+
+        // Wire up the date button to the DatePicker fragment.
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                //DatePickerFragment dialog = new DatePickerFragment();
+
+                // Get the date:
+                // Call DatePickerFragment.newInstance(Date), where we use the date
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mCoffee.getDate());
+                // stored in the current mCoffee object.
+                // Set the date extracted from the DatePicker as the button date.
+                dialog.setTargetFragment(CoffeeFragment.this, REQUEST_DATE);
+                dialog.show(manager, DIALOG_DATE);
+            }
+        });
+
+        // Do the same for the time fragment.
+        mTimeButton = (Button) v.findViewById(R.id.coffee_time);
+        updateTime();
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                TimePickerFragment dialog = TimePickerFragment.newInstance(mCoffee.getDate());
+                dialog.setTargetFragment(CoffeeFragment.this, REQUEST_TIME);
+                dialog.show(manager, DIALOG_TIME);
+            }
+        });
 
         // Wire up CheckBox XML object. ie. get a reference and set a listener.
         mCompleteCheckBox = (CheckBox)v.findViewById(R.id.coffee_completed);
@@ -114,4 +149,32 @@ public class CoffeeFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+        mCoffee.setDate(date);
+
+        switch (requestCode) {
+            case (REQUEST_DATE) : {
+                updateDate();
+                break;
+            }
+            case (REQUEST_TIME) : {
+                updateTime();
+                break;
+            }
+        }
+    }
+
+    private void updateDate() {
+        mDateButton.setText(simpleDateFormat.format(mCoffee.getDate()));
+    }
+
+    private void updateTime() {
+        mTimeButton.setText(DateFormat.format("h:mm a", mCoffee.getDate()));
+    }
 }

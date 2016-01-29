@@ -45,6 +45,7 @@ public class CoffeePagerActivity extends FragmentActivity {
         // Uses FragmentStatePagerAdapter.
         mViewPager = (ViewPager)findViewById(R.id.activity_coffee_pager_view_pager);
 
+        // Host the CoffeeFragment (IMPORTANT)
         mCoffees = CoffeeBar.get(this).getCoffees();
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {

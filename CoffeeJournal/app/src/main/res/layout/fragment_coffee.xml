@@ -25,6 +25,13 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/coffee_completed_label"/>
+    <Button
+        android:id="@+id/coffee_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/coffee_completed_label"/>
     <CheckBox
         android:id="@+id/coffee_completed"
         android:layout_width="match_parent"
