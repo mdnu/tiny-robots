@@ -101,13 +101,13 @@ public class CoffeeListFragment extends Fragment {
         public void onClick(View v) {
             //Toast.makeText(getActivity(), mCoffee.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
 
-            // Start CoffeeActivity using an intent.
+            // Start CoffeePagerActivity using an intent.
             // Get position of item. We use this in updateUI() method logic.
             mLastAdapterClickPosition = getAdapterPosition();
-            Intent intent = CoffeeActivity.newIntent(getActivity(), mCoffee.getId());
+            // UPDATE: Switched from CoffeeActivity to CoffeePagerActivity.
+            Intent intent = CoffeePagerActivity.newIntent(getActivity(), mCoffee.getId());
             startActivity(intent);
         }
-
     }
 
     // 'CoffeeAdapter' adapter inner class.
@@ -151,5 +151,4 @@ public class CoffeeListFragment extends Fragment {
         }
 
     }
-
 }

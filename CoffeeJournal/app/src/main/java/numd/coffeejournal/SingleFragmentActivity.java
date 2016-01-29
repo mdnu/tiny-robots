@@ -12,12 +12,13 @@ import android.util.Log;
  *
  * Created by m on 22/01/2016.
  */
+
 public abstract class SingleFragmentActivity extends FragmentActivity {
 
     protected abstract Fragment createFragment();
 
     // Add TAG constant.
-    private static final String TAG = "CoffeeActivity";
+    private static final String TAG = "CoffeePagerActivity";
 
     // Start logging methods.
     @Override

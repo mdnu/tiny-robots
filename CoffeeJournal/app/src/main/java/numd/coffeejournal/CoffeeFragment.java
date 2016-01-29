@@ -58,7 +58,6 @@ public class CoffeeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //mCoffee = new Coffee();
-        //UUID coffeeId = (UUID)getActivity().getIntent().getSerializableExtra(CoffeeActivity.EXTRA_COFFEE_ID);
         UUID coffeeId = (UUID)getArguments().getSerializable(ARG_COFFEE_ID);
         mCoffee = CoffeeBar.get(getActivity()).getCoffee(coffeeId);
     }
