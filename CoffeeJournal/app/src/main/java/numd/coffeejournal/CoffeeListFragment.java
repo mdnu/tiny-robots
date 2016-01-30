@@ -3,10 +3,14 @@ package numd.coffeejournal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -29,9 +33,19 @@ public class CoffeeListFragment extends Fragment {
     // Hook up the RecyclerView in fragment_coffee_list.xml to CoffeeListFragment.
     private RecyclerView mCoffeeRecyclerView;
     private CoffeeAdapter mAdapter;
-    // Challenge
+    private boolean mSubtitleVisible;
     private int mLastAdapterClickPosition = -1;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
+    private static final String SAVED_SUBTITLE_VISIBLE = "whatever";
+
+    /* Fragment methods start here */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // we have to tell the FragmentManager that our fragment should receive
+        // a call to onCreateOptionsMenu(...)
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +53,11 @@ public class CoffeeListFragment extends Fragment {
 
         mCoffeeRecyclerView = (RecyclerView) view.findViewById(R.id.coffee_recycler_view);
         mCoffeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        if (savedInstanceState != null) {
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
+        }
+
         updateUI();
         return view;
     }
@@ -47,6 +66,65 @@ public class CoffeeListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+    }
+
+    // Inflate a menu resource.
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        // pass fragment_coffee_list to populate the menu instance with items
+        // defined in our file. Also including a menu.
+        inflater.inflate(R.menu.fragment_coffee_list, menu);
+
+        MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
+        if (mSubtitleVisible) {
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        } else {
+            subtitleItem.setTitle(R.string.show_subtitle);
+        }
+    }
+
+    // Add new coffee item using the menu button.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_new_coffee :
+                // Add new coffee item.
+                Coffee coffee = new Coffee();
+                CoffeeBar.get(getActivity()).addCoffee(coffee);
+                Intent intent = CoffeePagerActivity
+                        .newIntent(getActivity(), coffee.getId());
+                startActivity(intent);
+                return true;
+            case R.id.menu_item_show_subtitle :
+                mSubtitleVisible = !mSubtitleVisible;
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    /* Fragment methods end here */
+
+    // Set toolbar's subtitle.
+    private void updateSubtitle() {
+        CoffeeBar coffeeBar = CoffeeBar.get(getActivity());
+        int coffeeCount = coffeeBar.getCoffees().size();
+        String subtitle = getString(R.string.subtitle_format, coffeeCount);
+
+        if (!mSubtitleVisible) {
+            subtitle = null;
+        }
+
+        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
     private void updateUI() {
@@ -67,9 +145,12 @@ public class CoffeeListFragment extends Fragment {
                 mAdapter.notifyItemChanged(mLastAdapterClickPosition);
                 mLastAdapterClickPosition = -1;
             }
+
+            updateSubtitle();
         }
     }
 
+    /* Inner Classes start here */
     // 'CoffeeHolder' ViewHolder inner class.
     // Retrieve data from list_item_coffee.xml
     // Implement View.OnClickListener to listen for presses.
@@ -98,11 +179,9 @@ public class CoffeeListFragment extends Fragment {
             mCompleteCheckBox.setChecked(mCoffee.isComplete());
         }
 
-        // Set up toast for onClick press.
+        // Set up onClick behavior.
         @Override
         public void onClick(View v) {
-            //Toast.makeText(getActivity(), mCoffee.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
-
             // Start CoffeePagerActivity using an intent.
             // Get position of item. We use this in updateUI() method logic.
             mLastAdapterClickPosition = getAdapterPosition();
@@ -151,6 +230,6 @@ public class CoffeeListFragment extends Fragment {
         public int getItemCount() {
             return mCoffees.size();
         }
-
     }
+    /* Inner Classes end here */
 }

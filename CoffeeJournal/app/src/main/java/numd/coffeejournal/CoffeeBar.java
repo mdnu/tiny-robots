@@ -34,15 +34,29 @@ public class CoffeeBar {
     // Private constructor.
     // Other classes unable to create CoffeeBar object.
 
+    // This is our main Fragment.
     private CoffeeBar(Context context) {
         mCoffees = new ArrayList<>();
+
+        /**
+        String coffeeTitle = "misc";
         // Generate 4 sample Coffees.
+
         for (int i = 0; i < 4; i++) {
             Coffee coffee = new Coffee();
-            coffee.setTitle("Coffee #" + (i+1));
-            coffee.setComplete(i % 2 == 0); // Take only even arguments.
+            switch (i) {
+                case (0) : coffeeTitle = "Tim Hortons Large Double-Double";
+                    break;
+                case (1) : coffeeTitle = "Starbucks Grande Mocha";
+                    break;
+                case (2) : coffeeTitle = "Home-Brew Kilimanjaro";
+                    break;
+                case (3) : coffeeTitle = "Second-Cup Sumatra Mandheling";
+            }
+            coffee.setTitle(coffeeTitle);
+            //coffee.setComplete(i % 2 == 0); // Take only even arguments.
             mCoffees.add(coffee);
-        }
+        }*/
     }
 
     // 'getCoffee' method.
@@ -56,6 +70,11 @@ public class CoffeeBar {
             }
         }
         return null;
+    }
+
+    // Method to add a new coffee.
+    public void addCoffee(Coffee c) {
+        mCoffees.add(c);
     }
 
     public List<Coffee> getCoffees() {

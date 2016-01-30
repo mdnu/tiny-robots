@@ -6,4 +6,8 @@
     <string name="coffee_details_label">Coffee Details</string>
     <string name="coffee_completed_label">Completed</string>
     <string name="date_picker_title">Date of order:</string>
+    <string name="new_coffee">New Coffee</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$s coffees</string>
 </resources>
