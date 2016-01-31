@@ -140,6 +140,7 @@ public class CoffeeListFragment extends Fragment {
             if (mLastAdapterClickPosition < 0) {
                 // updates the main list fragment if the adapter contents have changed.
                 // 'else' logic: if position has changed, reload the last adapter position.
+                mAdapter.setCoffees(coffees);
                 mAdapter.notifyDataSetChanged();
             } else {
                 mAdapter.notifyItemChanged(mLastAdapterClickPosition);
@@ -229,6 +230,10 @@ public class CoffeeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mCoffees.size();
+        }
+
+        public void setCoffees(List<Coffee> coffees) {
+            mCoffees = coffees;
         }
     }
     /* Inner Classes end here */

@@ -21,9 +21,11 @@ public class Coffee {
 
     // Constructor
     public Coffee() {
-        // Generate unique identifier.
-        mId = UUID.randomUUID();
-        // Initialize default date.
+        this(UUID.randomUUID());
+    }
+
+    public Coffee(UUID id) {
+        mId = id;
         mDate = new Date();
     }
 

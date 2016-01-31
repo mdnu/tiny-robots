@@ -43,11 +43,6 @@ public class CoffeeFragment extends Fragment {
     private CheckBox mCompleteCheckBox;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
 
-    // Add Static method newInstance() to Fragment class.
-    // Creates fragment instance, bundles up and sets its arguments.
-    // Instead of calling the constructor, the hosting activity calls this newInstance()
-    // to get an instance of this fragment.
-
     public static CoffeeFragment newInstance(UUID coffeeId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_COFFEE_ID, coffeeId);
@@ -56,9 +51,10 @@ public class CoffeeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-    // Public onCreate method (as opposed to protected)
-    // so that any activity hosting the fragment can call it.
+    // Add Static method newInstance() to Fragment class.
+    // Creates fragment instance, bundles up and sets its arguments.
+    // Instead of calling the constructor, the hosting activity calls this newInstance()
+    // to get an instance of this fragment.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +62,14 @@ public class CoffeeFragment extends Fragment {
         //mCoffee = new Coffee();
         UUID coffeeId = (UUID)getArguments().getSerializable(ARG_COFFEE_ID);
         mCoffee = CoffeeBar.get(getActivity()).getCoffee(coffeeId);
+    }
+    // so that any activity hosting the fragment can call it.
+    // Public onCreate method (as opposed to protected)
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CoffeeBar.get(getActivity()).updateCoffee(mCoffee);
     }
 
     // Inflates the fragment's view layout, and returns the inflated view to the host activity.
