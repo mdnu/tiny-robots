@@ -7,7 +7,11 @@
     <string name="coffee_completed_label">Completed</string>
     <string name="date_picker_title">Date of order:</string>
     <string name="new_coffee">New Coffee</string>
-    <string name="show_subtitle">Show Subtitle</string>
-    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="show_subtitle">Show #</string>
+    <string name="hide_subtitle">Hide #</string>
     <string name="subtitle_format">%1$s coffees</string>
+    <string name="delete_coffee">Delete Coffee</string>
+    <string name="toast_delete_coffee">Deleted</string>
+    <string name="coffee_with_text">Choose contact to recommend</string>
+    <string name="coffee_report_text">Send recommendation</string>
 </resources>

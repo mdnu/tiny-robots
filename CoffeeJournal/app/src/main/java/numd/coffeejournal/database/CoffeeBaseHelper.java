@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 // Import lets us refer to String constants in CoffeeDbSchema.CoffeeTable
 // by typing "CoffeeTable.Cols.UUID" rather than the entire "CoffeeDbSchema.CoffeeTable.Cols.UUID"
 
+import numd.coffeejournal.Coffee;
 import numd.coffeejournal.database.CoffeeDbSchema.CoffeeTable;
 
 /**
@@ -34,7 +35,8 @@ public class CoffeeBaseHelper extends SQLiteOpenHelper {
                 CoffeeTable.Cols.UUID + ", " +
                 CoffeeTable.Cols.TITLE + ", " +
                 CoffeeTable.Cols.DATE + ", " +
-                CoffeeTable.Cols.COMPLETE + ")"
+                CoffeeTable.Cols.COMPLETE + "," +
+                CoffeeTable.Cols.FRIEND + ")"
         );
     }
 

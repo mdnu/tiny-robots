@@ -24,11 +24,13 @@ public class CoffeeCursorWrapper extends CursorWrapper {
         String title = getString(getColumnIndex(CoffeeTable.Cols.TITLE));
         long date = getLong(getColumnIndex(CoffeeTable.Cols.DATE));
         int isComplete = getInt(getColumnIndex(CoffeeTable.Cols.COMPLETE));
+        String friend = getString(getColumnIndex(CoffeeTable.Cols.FRIEND));
 
         Coffee coffee = new Coffee(UUID.fromString(uuidString));
         coffee.setTitle(title);
         coffee.setDate(new Date(date));
         coffee.setComplete(isComplete!= 0);
+        coffee.setFriend(friend);
 
         return coffee;
     }

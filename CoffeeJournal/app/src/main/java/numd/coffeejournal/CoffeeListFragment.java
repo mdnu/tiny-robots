@@ -15,8 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -81,6 +84,7 @@ public class CoffeeListFragment extends Fragment {
         // pass fragment_coffee_list to populate the menu instance with items
         // defined in our file. Also including a menu.
         inflater.inflate(R.menu.fragment_coffee_list, menu);
+        //inflater.inflate(R.menu.fragment_coffee, menu);
 
         MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
         if (mSubtitleVisible) {
@@ -190,6 +194,7 @@ public class CoffeeListFragment extends Fragment {
             Intent intent = CoffeePagerActivity.newIntent(getActivity(), mCoffee.getId());
             startActivity(intent);
         }
+
     }
 
     // 'CoffeeAdapter' adapter inner class.

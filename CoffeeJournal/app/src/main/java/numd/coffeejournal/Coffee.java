@@ -18,6 +18,7 @@ public class Coffee {
     private String mTitle;
     private Date mDate;
     private boolean mComplete;
+    private String mFriend;
 
     // Constructor
     public Coffee() {
@@ -35,6 +36,14 @@ public class Coffee {
 
     public void setComplete(boolean complete) {
         mComplete = complete;
+    }
+
+    public String getFriend() {
+        return mFriend;
+    }
+
+    public void setFriend(String friend) {
+        mFriend = friend;
     }
 
     public Date getDate() {

@@ -32,6 +32,20 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/coffee_completed_label"/>
+    <Button
+        android:id="@+id/coffee_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/coffee_with_text"/>
+    <Button
+        android:id="@+id/coffee_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/coffee_report_text"/>
     <CheckBox
         android:id="@+id/coffee_completed"
         android:layout_width="match_parent"

@@ -47,5 +47,21 @@
             android:text="@string/coffee_completed_label"
             android:layout_weight="1"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/coffee_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/coffee_with_text"/>
+        <Button
+            android:id="@+id/coffee_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/coffee_report_text"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -109,6 +109,7 @@ public class CoffeeBar {
         values.put(CoffeeTable.Cols.TITLE, coffee.getTitle());
         values.put(CoffeeTable.Cols.DATE, coffee.getDate().getTime());
         values.put(CoffeeTable.Cols.COMPLETE, coffee.isComplete() ? 1 : 0);
+        values.put(CoffeeTable.Cols.FRIEND, coffee.getFriend());
         return values;
     }
 
@@ -135,6 +136,14 @@ public class CoffeeBar {
     // Method to add a new coffee.
     // Takes coffee object and extracts its content values,
     // placing it into a ContentValues object.
+
+    public void deleteCoffee(UUID coffeeID) {
+        String uuidString = coffeeID.toString();
+        mDatabase.delete(CoffeeTable.NAME,
+                CoffeeTable.Cols.UUID + " = ?",
+                new String[] { uuidString }
+        );
+    }
 
     public List<Coffee> getCoffees() {
         List<Coffee> coffees = new ArrayList<>();

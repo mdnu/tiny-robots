@@ -15,6 +15,7 @@ public class CoffeeDbSchema {
             public static final String TITLE = "title";
             public static final String DATE = "date";
             public static final String COMPLETE = "complete";
+            public static final String FRIEND = "friend";
 
             // Example column location:
             // CoffeeTable.Cols.TITLE for "title" column.
