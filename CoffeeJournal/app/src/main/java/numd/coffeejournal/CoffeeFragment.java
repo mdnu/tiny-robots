@@ -181,4 +181,27 @@ public class CoffeeFragment extends Fragment {
     private void updateTime() {
         mTimeButton.setText(DateFormat.format("h:mm a", mCoffee.getDate()));
     }
+
+    private String getCoffeeReport() {
+        String completeString = null;
+        if (mCoffee.isComplete()) {
+            completeString = getString(R.string.coffee_report_complete);
+        } else {
+            completeString = getString(R.string.coffee_report_incomplete);
+        }
+
+        String dateFormat = "EEE, MMM dd";
+        String dateString = DateFormat.format(dateFormat, mCoffee.getDate()).toString();
+
+        String friend = mCoffee.getFriend();
+        if (friend == null) {
+            friend = getString(R.string.coffee_report_no_friend);
+        } else {
+            friend = getString(R.string.coffee_report_friend, friend);
+        }
+
+        String report = getString(R.string.coffee_report, mCoffee.getTitle(), dateString, completeString, friend);
+
+        return report;
+    }
 }

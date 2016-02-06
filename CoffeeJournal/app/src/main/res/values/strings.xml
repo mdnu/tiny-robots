@@ -14,4 +14,11 @@
     <string name="toast_delete_coffee">Deleted</string>
     <string name="coffee_with_text">Choose contact to recommend</string>
     <string name="coffee_report_text">Send recommendation</string>
+    <string name="coffee_report">%1$s! Coffee ordered on %2$s . %3$s, and %4$s</string>
+    <string name="coffee_report_complete">Coffee tasting is complete</string>
+    <string name="coffee_report_incomplete">Coffee tasting is incomplete</string>
+    <string name="coffee_report_no_friend">No-one recommended to</string>
+    <string name="coffee_report_friend">Coffee recommended to %s.</string>
+    <string name="coffee_report_subject">CoffeeJournal Coffee Report</string>
+    <string name="send_report">Send coffee report via</string>
 </resources>
