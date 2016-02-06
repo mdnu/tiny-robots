@@ -137,8 +137,8 @@ public class CoffeeBar {
     // Takes coffee object and extracts its content values,
     // placing it into a ContentValues object.
 
-    public void deleteCoffee(UUID coffeeID) {
-        String uuidString = coffeeID.toString();
+    public void deleteCoffee(Coffee c) {
+        String uuidString = c.getId().toString();
         mDatabase.delete(CoffeeTable.NAME,
                 CoffeeTable.Cols.UUID + " = ?",
                 new String[] { uuidString }

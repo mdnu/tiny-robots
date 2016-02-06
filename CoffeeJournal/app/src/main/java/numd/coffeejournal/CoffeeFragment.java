@@ -2,7 +2,11 @@ package numd.coffeejournal;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -35,12 +39,15 @@ public class CoffeeFragment extends Fragment {
     private static final String DIALOG_TIME = "whatever";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
+    private static final int REQUEST_CONTACT = 1;
 
     private Coffee mCoffee;
     private EditText mTitleField;
     private Button mDateButton;
     private Button mTimeButton;
     private CheckBox mCompleteCheckBox;
+    private Button mFriendButton;
+    private Button mReportButton;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
 
     public static CoffeeFragment newInstance(UUID coffeeId) {
@@ -150,6 +157,49 @@ public class CoffeeFragment extends Fragment {
             }
         });
 
+        // Add and wire up a report button
+        mReportButton = (Button)v.findViewById(R.id.coffee_report);
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Implicit intent
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                // Include text of report, and string for subject of report
+                // both as extras.
+                i.putExtra(Intent.EXTRA_TEXT, getCoffeeReport());
+                i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.coffee_report_subject));
+                // Create chooser
+                i = Intent.createChooser(i, getString(R.string.send_report));
+                startActivity(i);
+            }
+        });
+
+        // Get a reference to mFriendButton and set a listener on it.
+        // In the listener's implementation, create teh implicit intent and pass it into
+        // startActivityForResult(...). Also, once a friend is assigned, show the name on the
+        // friend button.
+        final Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        mFriendButton = (Button)v.findViewById(R.id.coffee_friend);
+        mFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(pickContact, REQUEST_CONTACT);
+            }
+        });
+
+        if (mCoffee.getFriend() != null) {
+            mFriendButton.setText(mCoffee.getFriend());
+        }
+
+        // Guard against no contacts app
+        PackageManager packageManager = getActivity().getPackageManager();
+        if (packageManager.resolveActivity(pickContact, PackageManager.MATCH_DEFAULT_ONLY) == null) {
+            // If there is no contacts app installed,
+            // disable the friend button.
+            mFriendButton.setEnabled(false);
+        }
+
         return v;
     }
 
@@ -170,6 +220,33 @@ public class CoffeeFragment extends Fragment {
             case (REQUEST_TIME) : {
                 updateTime();
                 break;
+            }
+        }
+
+        if (requestCode == REQUEST_CONTACT && data != null) {
+            Uri contactUri = data.getData();
+            // Specify which fields you want your query to return
+            // values for.
+            String [] queryFields = new String[] {
+                    ContactsContract.Contacts.DISPLAY_NAME
+            };
+            // Perform your query - the contactUri is like a "where"
+            // clause here
+            Cursor c = getActivity().getContentResolver().query(contactUri, queryFields, null, null, null);
+            try {
+                // Double-check that you actually have results
+                if (c.getCount() == 0) {
+                    return;
+                }
+
+                // Pull out the first column of the first row of data -
+                // that is your friend's name.
+                c.moveToFirst();
+                String friend = c.getString(0);
+                mCoffee.setFriend(friend);
+                mFriendButton.setText(friend);
+            } finally {
+                c.close();
             }
         }
     }

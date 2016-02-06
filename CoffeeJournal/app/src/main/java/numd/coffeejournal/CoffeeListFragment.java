@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.view.ActionMode;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -115,6 +117,8 @@ public class CoffeeListFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
     /* Fragment methods end here */
 
     // Set toolbar's subtitle.
