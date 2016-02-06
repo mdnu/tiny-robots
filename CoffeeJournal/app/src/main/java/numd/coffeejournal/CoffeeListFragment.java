@@ -96,7 +96,7 @@ public class CoffeeListFragment extends Fragment {
         }
     }
 
-    // Add new coffee item using the menu button.
+    // Options Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

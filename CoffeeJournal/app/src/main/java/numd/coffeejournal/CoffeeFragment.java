@@ -13,14 +13,20 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -69,6 +75,7 @@ public class CoffeeFragment extends Fragment {
         //mCoffee = new Coffee();
         UUID coffeeId = (UUID)getArguments().getSerializable(ARG_COFFEE_ID);
         mCoffee = CoffeeBar.get(getActivity()).getCoffee(coffeeId);
+        setHasOptionsMenu(true);
     }
     // so that any activity hosting the fragment can call it.
     // Public onCreate method (as opposed to protected)
@@ -281,4 +288,29 @@ public class CoffeeFragment extends Fragment {
 
         return report;
     }
+
+    // For individual fragment, inflate the secondary menu.
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_coffee_two, menu);
+    }
+
+
+    // Allow for deletion of entry.
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_delete_coffee :
+                if (mCoffee != null) {
+                    Toast.makeText(getActivity(), "Deleting entry", Toast.LENGTH_LONG).show();
+                    CoffeeBar.get(getActivity()).deleteCoffee(mCoffee);
+                    getActivity().finish();
+                }
+                return true;
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
