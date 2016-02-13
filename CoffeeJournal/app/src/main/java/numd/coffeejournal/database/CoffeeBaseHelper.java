@@ -11,21 +11,27 @@ import numd.coffeejournal.Coffee;
 import numd.coffeejournal.database.CoffeeDbSchema.CoffeeTable;
 
 /**
- *
  * SQLiteOpenHelper extension
- *
- * helps to open/create an SQLiteDatabase.
- *
  * Created by m on 30/01/2016.
  */
 
 public class CoffeeBaseHelper extends SQLiteOpenHelper {
+
+    // This class is called by the CoffeeBar constructor
+    // in order to make a database of Coffee objects.
+    // It extends SQLiteOpenHelper, so the CoffeeBar constructor
+    // passes into CoffeeBaseHelper's constructor the application's
+    // Context, and uses the inherited 'getWriteableDatabase' method
+    // to create a database.
+
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "coffeeBase.db";
 
+    // "CoffeeBaseHelper" constructor.
+    // Calls SQLiteOpenHelper to create a database, passing into
+    // it the application Context.
     public CoffeeBaseHelper (Context context) {
         super(context, DATABASE_NAME, null, VERSION);
-
     }
 
     @Override
@@ -42,6 +48,5 @@ public class CoffeeBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 }

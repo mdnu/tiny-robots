@@ -1,11 +1,10 @@
 package numd.coffeejournal.database;
 
 /**
- *
  * database schema
- *
  * Created by m on 30/01/2016.
  */
+
 public class CoffeeDbSchema {
     public static final class CoffeeTable {
         public static final String NAME = "coffees";

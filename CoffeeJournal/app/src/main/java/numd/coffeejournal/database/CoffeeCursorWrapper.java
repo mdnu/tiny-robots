@@ -15,6 +15,13 @@ import numd.coffeejournal.database.CoffeeDbSchema.CoffeeTable;
 
 public class CoffeeCursorWrapper extends CursorWrapper {
 
+    // "CoffeeCursorWrapper" helper class.
+    // This class creates cursors to read/write databases, since
+    // it extends the CursorWrapper superclass.
+
+    // This class is used by the CoffeeBar's getCoffee method to create
+    // a cursor using the CursorWrapper superclass.
+
     public CoffeeCursorWrapper(Cursor cursor) {
         super(cursor);
     }

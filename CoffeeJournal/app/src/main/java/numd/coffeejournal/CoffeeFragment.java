@@ -23,22 +23,55 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
  * controller layer (II of IV)
- *
- * Presents details of a coffee-tasting journal entry, and allows
- * the user to update these details.
- *
  * Created by m on 16/01/2016.
  */
 
 public class CoffeeFragment extends Fragment {
+
+    // "CoffeeFragment" control class.
+    // These are the Fragments that CoffeePagerActivity displays.
+    // Basically, the CoffeeFragment displays details of a Coffee object and interacts
+    // with the View layer to update/change the properties of the Coffee object.
+
+    // We have the following methods:
+    // (Creates Fragments). A static newInstance method
+    //  to create a Fragment instance using a given Coffee UUID,
+    //  setting the arguments of the Fragment, and then returning the configured Fragment.
+
+    // (Creates and displays the Coffee View). A public 'onCreate' overriding method.
+    //  This method extracts the UUID of the Coffee from 'ARG_COFFEE_ID', gets the Coffee
+    //  from the CoffeeBar (using its get method) which returns the CoffeeBar.
+    //  method is public so that any activity hosting CoffeeFragment can call it.
+
+    // (Updating method). An 'onPause' overriding method
+    //  which, when called, pushes any updates made to the
+    //  current viewed Coffee object to the CoffeeLab.
+
+    // (Creates View). An 'onCreateView' overriding method
+    //  which creates, configures and returns the View.
+    //  We'll explain below.
+
+    // (Updates Buttons). An 'onActivityResult' overriding method.
+    //  which retrieves the Intent's extra, sets the date on the Coffee object,
+    //  and refreshes the text of the date button. We'll explain below.
+
+    // Two helper methods, updateDate and updateTime
+    //  which updates the dates and time on the date and time buttons.
+
+    // (Generates report). A private 'getCoffeeReport' method.
+    //  which generates a report for the Coffee object. We'll explain below.
+
+    // (Top Menu Inflater). An 'onCreateOptionsMenu' overriding method
+    //  which inflates the secondary menu. i.e. the top menu, which contains the delete button.
+
+    // (Entry Deletion Functionality). An 'onOptionsItemSelected' overriding method
+    //  which allows for entry deletion. i.e. it's related to the above method. We'll explain below.
 
     private static final String ARG_COFFEE_ID = "whatever";
     private static final String DIALOG_DATE = "whatever";
@@ -49,9 +82,9 @@ public class CoffeeFragment extends Fragment {
 
     private Coffee mCoffee;
     private EditText mTitleField;
+    private CheckBox mCompleteCheckBox;
     private Button mDateButton;
     private Button mTimeButton;
-    private CheckBox mCompleteCheckBox;
     private Button mFriendButton;
     private Button mReportButton;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
@@ -64,10 +97,6 @@ public class CoffeeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    // Add Static method newInstance() to Fragment class.
-    // Creates fragment instance, bundles up and sets its arguments.
-    // Instead of calling the constructor, the hosting activity calls this newInstance()
-    // to get an instance of this fragment.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,8 +106,6 @@ public class CoffeeFragment extends Fragment {
         mCoffee = CoffeeBar.get(getActivity()).getCoffee(coffeeId);
         setHasOptionsMenu(true);
     }
-    // so that any activity hosting the fragment can call it.
-    // Public onCreate method (as opposed to protected)
 
     @Override
     public void onPause() {
@@ -86,7 +113,6 @@ public class CoffeeFragment extends Fragment {
         CoffeeBar.get(getActivity()).updateCoffee(mCoffee);
     }
 
-    // Inflates the fragment's view layout, and returns the inflated view to the host activity.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Explicitly inflates, passing in layout resource ID.
@@ -289,15 +315,12 @@ public class CoffeeFragment extends Fragment {
         return report;
     }
 
-    // For individual fragment, inflate the secondary menu.
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_coffee_two, menu);
     }
 
-
-    // Allow for deletion of entry.
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
