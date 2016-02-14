@@ -89,30 +89,52 @@ public class CoffeeFragment extends Fragment {
     private Button mReportButton;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
 
+    // CoffeeFragment's "newInstance" method
+    // A static method to create fragments using a given Coffee object UUID.
+    // How: Create a new Bundle of arguments 'args'. Then...
     public static CoffeeFragment newInstance(UUID coffeeId) {
         Bundle args = new Bundle();
+        // Use input UUID and Coffee ID "ARG_COFFEE_ID" into the args bundle.
         args.putSerializable(ARG_COFFEE_ID, coffeeId);
 
+        // Create a new (empty) CoffeeFragment.
         CoffeeFragment fragment = new CoffeeFragment();
+        // Set the CoffeeFragment to display the desired Coffee using the args Bundle.
         fragment.setArguments(args);
+        // Return the configured CoffeeFragment.
         return fragment;
     }
 
+    // CoffeeFragment's "onCreate" overriding method.
+    // Creates and displays the Coffee View.
+    // How: Creates a Fragment using the savedInstanceState, and...
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mCoffee = new Coffee();
+        // Extracts the UUID of the desired Coffee object from 'ARG_COFFEE_ID', and...
         UUID coffeeId = (UUID)getArguments().getSerializable(ARG_COFFEE_ID);
+        // uses this UUID to get the Coffee object from the CoffeeBar.
         mCoffee = CoffeeBar.get(getActivity()).getCoffee(coffeeId);
+        // Also, enables the options menu.
         setHasOptionsMenu(true);
     }
 
+    // CoffeeFragment's "onPause" overriding method.
+    // When we call this method, it pushes any updates made
+    // to the current viewed Coffe object to the Coffee lab.
+    // How: We pause the Fragment, then...
     @Override
     public void onPause() {
         super.onPause();
+        // Access the CoffeeBar, use its 'get' method, passing to it
+        // our current Activity Context, and then updating the Coffee object
+        // obtained from the Context with the new mCoffee Coffee object.
         CoffeeBar.get(getActivity()).updateCoffee(mCoffee);
     }
 
+    // CoffeeFragment's "onCreateView" overriding method.
+    // Creates, configures and returns(inflates) the View object.
+    // How:
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Explicitly inflates, passing in layout resource ID.
@@ -146,8 +168,6 @@ public class CoffeeFragment extends Fragment {
         // Show the DialogFragment
         mDateButton = (Button)v.findViewById(R.id.coffee_date);
         updateDate();
-        // Default set to disabled state.
-        //mDateButton.setEnabled(false);
 
         // Wire up the date button to the DatePicker fragment.
         mDateButton.setOnClickListener(new View.OnClickListener() {
@@ -236,26 +256,37 @@ public class CoffeeFragment extends Fragment {
         return v;
     }
 
+    // CoffeeFragment's "onActivityResult" overriding method.
+    // Retrieves the Intent's Extra, sets the date on the Coffee object,
+    // and refreshes the text of the date button.
+    // How:
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // If resultCode isn't our desured resu
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
 
+        // Get the Date from the Extra.
         Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+        // Set the date.
         mCoffee.setDate(date);
 
+        // Use the input requestCode, and...
         switch (requestCode) {
             case (REQUEST_DATE) : {
+                // If we are updating the date, do so:
                 updateDate();
                 break;
             }
             case (REQUEST_TIME) : {
+                // If we are updating the time, do so:
                 updateTime();
                 break;
             }
         }
 
+        // If we are requesting the Contact info:
         if (requestCode == REQUEST_CONTACT && data != null) {
             Uri contactUri = data.getData();
             // Specify which fields you want your query to return
@@ -263,8 +294,7 @@ public class CoffeeFragment extends Fragment {
             String [] queryFields = new String[] {
                     ContactsContract.Contacts.DISPLAY_NAME
             };
-            // Perform your query - the contactUri is like a "where"
-            // clause here
+            // Perform your query - the contactUri is like a "where" clause here.
             Cursor c = getActivity().getContentResolver().query(contactUri, queryFields, null, null, null);
             try {
                 // Double-check that you actually have results
@@ -272,7 +302,7 @@ public class CoffeeFragment extends Fragment {
                     return;
                 }
 
-                // Pull out the first column of the first row of data -
+                // Extract the first column of the first row of data -
                 // that is your friend's name.
                 c.moveToFirst();
                 String friend = c.getString(0);
@@ -284,25 +314,38 @@ public class CoffeeFragment extends Fragment {
         }
     }
 
+    // CoffeeFragment's private "updateDate" helper method.
+    // Sets the new date displayed on the Date button.
     private void updateDate() {
         mDateButton.setText(simpleDateFormat.format(mCoffee.getDate()));
     }
 
+    // CoffeeFragment's private "updateTime" helper method.
+    // Sets the new time displayed on the Time button.
     private void updateTime() {
         mTimeButton.setText(DateFormat.format("h:mm a", mCoffee.getDate()));
     }
 
+    // CoffeeFragment's private "getCoffeeReport" method.
+    // Generates a report for the Coffee object. How:
     private String getCoffeeReport() {
+        // Create empty String to fill in.
         String completeString = null;
         if (mCoffee.isComplete()) {
+            // If we've completed the Coffee tasting, say so.
             completeString = getString(R.string.coffee_report_complete);
         } else {
+            // If not, say so.
             completeString = getString(R.string.coffee_report_incomplete);
         }
 
+        // Create String which outlines the date format to fill in.
         String dateFormat = "EEE, MMM dd";
+        // Create and fill in the Date String using the format.
         String dateString = DateFormat.format(dateFormat, mCoffee.getDate()).toString();
 
+        // Get the name of the friend we're having the Coffee with.
+        // Self-explanatory.
         String friend = mCoffee.getFriend();
         if (friend == null) {
             friend = getString(R.string.coffee_report_no_friend);
@@ -310,30 +353,45 @@ public class CoffeeFragment extends Fragment {
             friend = getString(R.string.coffee_report_friend, friend);
         }
 
+        // Generate report using all the info above.
         String report = getString(R.string.coffee_report, mCoffee.getTitle(), dateString, completeString, friend);
-
+        // Return the finished report to output.
         return report;
     }
 
+    // CoffeeFragment's "onCreateOptionsMenu" overriding method.
+    // Inflates the secondary (top) menu containing the Delete button. How:
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Create options menu with an inflater.
         super.onCreateOptionsMenu(menu, inflater);
+        // Use inflater to inflate the designated top menu fragment.
         inflater.inflate(R.menu.fragment_coffee_two, menu);
     }
 
+    // CoffeeFragment's "onOptionsItemSelected" overriding method.
+    // Allows for entry deletion.
+    // How: Pass in MenuItem as input, then..
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
+        // Get the MenuItem's ID:
         switch (item.getItemId()) {
+            // If the MenuItem chosen is for deleting the Coffee object, then...
             case R.id.menu_item_delete_coffee :
+                // If the Coffee object is non-empty:
                 if (mCoffee != null) {
+                    // Display a Toast telling the user that we're deleting the entry.
                     Toast.makeText(getActivity(), "Deleting entry", Toast.LENGTH_LONG).show();
+                    // Directly delete the Coffee object from the CoffeeBar.
                     CoffeeBar.get(getActivity()).deleteCoffee(mCoffee);
+                    // Finish the Activity cycle (to update the database).
                     getActivity().finish();
                 }
+                // Return.
                 return true;
             default :
+                // Otherwise, proceed as usual.
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }
