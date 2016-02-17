@@ -24,18 +24,32 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- *
  * controller layer (IV of IV)
- *
- * extends the android Fragment superclass.
- * displays a list of coffees to the user using a RecyclerView.
- *
  * Created by m on 22/01/2016.
  */
 
 public class CoffeeListFragment extends Fragment {
 
-    // Hook up the RecyclerView in fragment_coffee_list.xml to CoffeeListFragment.
+    // "CoffeeListFragment" controller class.
+    // Displays a list of Coffee objects to the user using a RecyclerView.
+    // Hooks up the RecyclerView in fragment_coffee_list.xml to CoffeeListFragment.
+
+    // We have several fragment methods and two inner classes.
+
+    // Fragment methods:
+    // ================
+    // An 'onCreate' overriding method.
+    //  Tells the FragmentManager that our fragment should receive a call to onCreateOptionsMenu(...)
+    // An 'onCreateView' overriding method, which inflates and updates our view.
+    // An 'onResume' overriding method that updates the UI as well.
+    // An 'onSaveInstanceState' overriding method
+    // An 'onCreateOptionsMenu' overriding method that inflates a menu resource.
+    // An 'onOptionsItemSelected' overriding method that creates the options menu.
+
+    // "CoffeeAdapter" inner class:
+    // ===========================
+    //
+
     private RecyclerView mCoffeeRecyclerView;
     private CoffeeAdapter mAdapter;
     private boolean mSubtitleVisible;
