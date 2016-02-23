@@ -72,6 +72,8 @@ public class CoffeeListFragment extends Fragment {
     private static final String SAVED_SUBTITLE_VISIBLE = "whatever";
 
     /* Fragment methods start here */
+    // CoffeeListFragment's "onCreate" overwriting method.
+    // Standard onCreate, though we include a 'setHasOptionsMenu' call.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,42 +82,67 @@ public class CoffeeListFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    // CoffeeListFragment's "onResume" overwriting method.
+    // When CoffeeListActivity is created, it receives a call to onResume() from the OS.
+    // Once received, the FragmentManager calls onResume() on the fragments that it's hosting.
+    // Here, the only fragment CoffeeListActivity is hosting is this one, CoffeeListFragment.
+    // We include an updateUI() call to reload the list of Coffee objects.
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Call to updateUI() method below.
+        updateUI();
+    }
+
+    // CoffeeListFragment's "onCreateView" overwriting method.
+    // Sets up the View for CoffeeListFragment.
+    // Hooks up the fragment_coffee_list.xml layout file,
+    // and finds the RecyclerView in the layout file.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_coffee_list, container, false);
 
+        // Set our created mCoffeeRecyclerView from above to find the coffee_recycler_view View.
         mCoffeeRecyclerView = (RecyclerView) view.findViewById(R.id.coffee_recycler_view);
+        // We give mCoffeeRecyclerView a LayoutManager.
+        // Note that RecyclerView always requires a LayoutManager to work.
+        // Without one, the app will crash.
         mCoffeeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        // Saves subtitle visibility state between app rotations.
+        // If a saved instance state exists, retrieve and set the assigned subtitle.
         if (savedInstanceState != null) {
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
         }
 
+        // Call to updateUI() method below.
         updateUI();
+        // Returns configured View object.
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateUI();
-    }
-
+    // CoffeeListFragment's "onSaveInstanceState" overwriting method.
+    // Overwritten to include subtitle-saving functionality.
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        // Use saved instance state mechanism to save the subtitle.
+        // This allows us to save 'mSubtitleVisible' across rotations of the app.
         outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
-    // Inflate a menu resource.
+    // CoffeeListFragment's "onCreateOptionsMenu" overwriting method.
+    // Creates a menu, implemented in a Fragment.
+    // Inflates the menu resource defined in fragment_coffee_list.xml.
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        // pass fragment_coffee_list to populate the menu instance with items
-        // defined in our file. Also including a menu.
+        // Call MenuInflater.inflate(int, Menu) and pass in the resource ID of menu file.
+        // In this case, fragment_coffee_list.
+        // This populates the Menu instance with items defined in our file.
         inflater.inflate(R.menu.fragment_coffee_list, menu);
-        //inflater.inflate(R.menu.fragment_coffee, menu);
 
+        // Updates 'Show #' MenuItem.
         MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
         if (mSubtitleVisible) {
             subtitleItem.setTitle(R.string.hide_subtitle);
@@ -124,7 +151,9 @@ public class CoffeeListFragment extends Fragment {
         }
     }
 
-    // Options Menu
+    // CoffeeListFragment's "onOptionsItemSelected" overwriting method.
+    // Responds to user interaction with the specified MenuItem.
+    // MenuItem is chosen by 'item.getItemId()' call.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -137,6 +166,8 @@ public class CoffeeListFragment extends Fragment {
                 startActivity(intent);
                 return true;
             case R.id.menu_item_show_subtitle :
+                // Triggers a re-creation of the action items when
+                // user presses the "Show #" action item.
                 mSubtitleVisible = !mSubtitleVisible;
                 getActivity().invalidateOptionsMenu();
                 updateSubtitle();
