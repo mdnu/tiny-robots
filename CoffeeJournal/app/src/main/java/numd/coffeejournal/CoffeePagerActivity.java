@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * controller layer (I of IV)
+ * controller layer (I of V)
+ * main controller class.
  * Created by m on 28/01/2016.
  */
 
 public class CoffeePagerActivity extends AppCompatActivity {
 
-    // "CoffeePagerActivity" control class.
-    // This class activity will host the CoffeeFragment activity.
+    // Host the CoffeeFragment activity.
     // That is, CoffeePagerActivity hosts the CoffeeFragment activity.
 
     // Consists of an instance of ViewPager, which lets users navigate

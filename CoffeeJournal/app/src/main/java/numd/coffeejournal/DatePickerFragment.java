@@ -9,13 +9,19 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
+ * controller layer (V of V)
  * Created by m on 29/01/2016.
  */
 
 public class DatePickerFragment extends DialogPickerFragment {
 
+    // Allows for picking a date from a calendar View.
+    // "DatePickerFragment" is subclass of "DialogPickerFragment",
+    // which is itself a subclass of DialogFragment.
+
     private DatePicker mDatePicker;
 
+    // DatePickerFragment's "newInstance" public constructor.
     // Called by CoffeeFragment to set the date.
     public static DatePickerFragment newInstance(Date date) {
         // get args from DialogPickerFragment
@@ -27,7 +33,7 @@ public class DatePickerFragment extends DialogPickerFragment {
         return fragment;
     }
 
-
+    // DatePickerFragment's "initLayout" overriding protected method.
     @Override
     protected View initLayout() {
         // inflate date view and wire it.
@@ -37,6 +43,8 @@ public class DatePickerFragment extends DialogPickerFragment {
         return v;
     }
 
+    // DatePickerFragment's "getDate" overriding method.
+    // Retrieves date and time from date picker and calendar resp.
     @Override
     protected Date getDate() {
         // Get date from date picker.

@@ -18,6 +18,9 @@ import java.util.Date;
 
 public abstract class DialogPickerFragment extends DialogFragment {
 
+    // Creates Dialog (pop-up) for picking a date for our Coffee event.
+    // Note: "DialogPickerFragment" is an abstract subclass of DialogFragment.
+
     public static final String EXTRA_DATE = "etcetcetc";
     // Variable for date argument.
     private static final String ARG_DATE = "etcetc";
@@ -26,6 +29,7 @@ public abstract class DialogPickerFragment extends DialogFragment {
     protected abstract View initLayout();
     protected abstract Date getDate();
 
+    // DialogPickerFragment's "getArgs" protected method.
     protected static Bundle getArgs(Date date) {
         Bundle args = new Bundle();
         // This is where we store the date.

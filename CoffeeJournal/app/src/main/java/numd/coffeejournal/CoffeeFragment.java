@@ -28,16 +28,16 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * controller layer (II of IV)
+ * controller layer (II of V)
  * Created by m on 16/01/2016.
  */
 
 public class CoffeeFragment extends Fragment {
 
-    // "CoffeeFragment" control class.
-    // These are the Fragments that CoffeePagerActivity displays.
+    // Allows user interaction with Coffee objects.
     // Basically, the CoffeeFragment displays details of a Coffee object and interacts
     // with the View layer to update/change the properties of the Coffee object.
+    // These are the Fragments that CoffeePagerActivity displays.
 
     // We have the following methods:
     // (Creates Fragments). A static newInstance method
