@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ShareCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -35,6 +36,7 @@ import java.util.UUID;
 public class CoffeeFragment extends Fragment {
 
     // Allows user interaction with Coffee objects.
+    // i.e. The Fragment with "Project Title" and "Coffee Details".
     // Basically, the CoffeeFragment displays details of a Coffee object and interacts
     // with the View layer to update/change the properties of the Coffee object.
     // These are the Fragments that CoffeePagerActivity displays.
@@ -77,7 +79,7 @@ public class CoffeeFragment extends Fragment {
     private static final String DIALOG_DATE = "whatever";
     private static final String DIALOG_TIME = "whatever";
     private static final int REQUEST_DATE = 0;
-    private static final int REQUEST_TIME = 1;
+    private static final int REQUEST_TIME = -200;
     private static final int REQUEST_CONTACT = 1;
 
     private Coffee mCoffee;
@@ -121,7 +123,7 @@ public class CoffeeFragment extends Fragment {
 
     // CoffeeFragment's "onPause" overriding method.
     // When we call this method, it pushes any updates made
-    // to the current viewed Coffe object to the Coffee lab.
+    // to the current viewed Coffee object to the Coffee lab.
     // How: We pause the Fragment, then...
     @Override
     public void onPause() {
@@ -216,20 +218,26 @@ public class CoffeeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Implicit intent
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
+                //Intent i = new Intent(Intent.ACTION_SEND);
+                //i.setType("text/plain");
                 // Include text of report, and string for subject of report
                 // both as extras.
-                i.putExtra(Intent.EXTRA_TEXT, getCoffeeReport());
-                i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.coffee_report_subject));
+                //i.putExtra(Intent.EXTRA_TEXT, getCoffeeReport());
+                //i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.coffee_report_subject));
                 // Create chooser
-                i = Intent.createChooser(i, getString(R.string.send_report));
-                startActivity(i);
+                //i = Intent.createChooser(i, getString(R.string.send_report));
+                //startActivity(i);
+                ShareCompat.IntentBuilder.from(getActivity())
+                        .setType("text/plain")
+                        .setText(getCoffeeReport())
+                        .setSubject(getString(R.string.coffee_report))
+                        .setChooserTitle(getString(R.string.send_report))
+                        .startChooser();
             }
         });
 
         // Get a reference to mFriendButton and set a listener on it.
-        // In the listener's implementation, create teh implicit intent and pass it into
+        // In the listener's implementation, create the implicit intent and pass it into
         // startActivityForResult(...). Also, once a friend is assigned, show the name on the
         // friend button.
         final Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
@@ -262,7 +270,7 @@ public class CoffeeFragment extends Fragment {
     // How:
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // If resultCode isn't our desured resu
+        // If resultCode isn't our desired result
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
@@ -286,7 +294,6 @@ public class CoffeeFragment extends Fragment {
             }
         }
 
-        // If we are requesting the Contact info:
         if (requestCode == REQUEST_CONTACT && data != null) {
             Uri contactUri = data.getData();
             // Specify which fields you want your query to return
@@ -310,6 +317,7 @@ public class CoffeeFragment extends Fragment {
                 mFriendButton.setText(friend);
             } finally {
                 c.close();
+                getActivity().finish();
             }
         }
     }
@@ -378,20 +386,18 @@ public class CoffeeFragment extends Fragment {
         switch (item.getItemId()) {
             // If the MenuItem chosen is for deleting the Coffee object, then...
             case R.id.menu_item_delete_coffee :
-                // If the Coffee object is non-empty:
-                if (mCoffee != null) {
-                    // Display a Toast telling the user that we're deleting the entry.
-                    Toast.makeText(getActivity(), "Deleting entry", Toast.LENGTH_LONG).show();
-                    // Directly delete the Coffee object from the CoffeeBar.
-                    CoffeeBar.get(getActivity()).deleteCoffee(mCoffee);
-                    // Finish the Activity cycle (to update the database).
-                    getActivity().finish();
-                }
+                // Display a Toast telling the user that we're deleting the entry.
+                Toast.makeText(getActivity(), "Deleting entry!@!@", Toast.LENGTH_LONG).show();
+                // Directly delete the Coffee object from the CoffeeBar.
+                CoffeeBar.get(getActivity()).deleteCoffee(mCoffee);
+                // Finish the Activity cycle (to update the database).
+                getActivity().finish();
                 // Return.
-                return true;
+                //return true;
             default :
                 // Otherwise, proceed as usual.
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

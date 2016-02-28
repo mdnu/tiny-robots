@@ -202,7 +202,7 @@ public class CoffeeListFragment extends Fragment {
 
     // CoffeeListFragment's "updateUI" private method.
     // Connects the RecyclerView (mCoffeeRecyclerView) to our Adapter (mAdapter, a CoffeeAdapter).
-    private void updateUI() {
+    public void updateUI() {
         CoffeeBar coffeeBar = CoffeeBar.get(getActivity());
         List<Coffee> coffees = coffeeBar.getCoffees();
 
