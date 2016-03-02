@@ -37,6 +37,8 @@ public abstract class DialogPickerFragment extends DialogFragment {
         return args;
     }
 
+    // DialogPickerFragment's "onCreateDialog" non-null overriding method.
+    // Sets up AlertDialog.
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
