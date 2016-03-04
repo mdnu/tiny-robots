@@ -89,10 +89,11 @@ public class CoffeeListFragment extends Fragment {
     // We include an updateUI() call to reload the list of Coffee objects.
     @Override
     public void onResume() {
+        updateUI();
         super.onResume();
         // Call to updateUI() method below.
-        updateUI();
     }
+
 
     // CoffeeListFragment's "onCreateView" overriding method.
     // Sets up the View for CoffeeListFragment.
@@ -226,6 +227,7 @@ public class CoffeeListFragment extends Fragment {
             updateSubtitle();
         }
     }
+
 
     /* Inner Classes start here */
     // 'CoffeeHolder' ViewHolder private inner class.

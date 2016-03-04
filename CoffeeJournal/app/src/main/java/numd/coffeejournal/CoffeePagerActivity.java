@@ -112,7 +112,7 @@ public class CoffeePagerActivity extends AppCompatActivity {
             }
         }
 
-        // Basically, when other control classes use newIntent to start the CoffePagerActivity,
+        // Basically, when other control classes use newIntent to start the CoffeePagerActivity,
         // we use the extra info of the desired UUID and use the above loop to find the associated
         // Coffee and its View and then we display that View.
 

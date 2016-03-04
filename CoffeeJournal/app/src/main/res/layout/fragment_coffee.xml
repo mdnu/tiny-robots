@@ -46,6 +46,13 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/coffee_report_text"/>
+    <Button
+        android:id="@+id/coffee_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/coffee_delete_text"/>
     <CheckBox
         android:id="@+id/coffee_completed"
         android:layout_width="match_parent"

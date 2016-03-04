@@ -79,8 +79,8 @@ public class CoffeeFragment extends Fragment {
     private static final String DIALOG_DATE = "whatever";
     private static final String DIALOG_TIME = "whatever";
     private static final int REQUEST_DATE = 0;
-    private static final int REQUEST_TIME = -200;
-    private static final int REQUEST_CONTACT = 1;
+    private static final int REQUEST_TIME = 1;
+    private static final int REQUEST_CONTACT = 2;
 
     private Coffee mCoffee;
     private EditText mTitleField;
@@ -89,6 +89,7 @@ public class CoffeeFragment extends Fragment {
     private Button mTimeButton;
     private Button mFriendButton;
     private Button mReportButton;
+    private Button mDeleteButton;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
 
     // CoffeeFragment's "newInstance" method
@@ -261,6 +262,14 @@ public class CoffeeFragment extends Fragment {
             mFriendButton.setEnabled(false);
         }
 
+        mDeleteButton = (Button)v.findViewById(R.id.coffee_delete);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteCoffee();
+            }
+        });
+
         return v;
     }
 
@@ -280,21 +289,15 @@ public class CoffeeFragment extends Fragment {
         // Set the date.
         mCoffee.setDate(date);
 
-        // Use the input requestCode, and...
-        switch (requestCode) {
-            case (REQUEST_DATE) : {
-                // If we are updating the date, do so:
-                updateDate();
-                break;
-            }
-            case (REQUEST_TIME) : {
-                // If we are updating the time, do so:
-                updateTime();
-                break;
-            }
+        if (requestCode == REQUEST_DATE) {
+            updateDate();
         }
 
-        if (requestCode == REQUEST_CONTACT && data != null) {
+        if (requestCode == REQUEST_TIME) {
+            updateTime();
+        }
+
+        if (requestCode == REQUEST_CONTACT) {
             Uri contactUri = data.getData();
             // Specify which fields you want your query to return
             // values for.
@@ -303,22 +306,18 @@ public class CoffeeFragment extends Fragment {
             };
             // Perform your query - the contactUri is like a "where" clause here.
             Cursor c = getActivity().getContentResolver().query(contactUri, queryFields, null, null, null);
-            try {
-                // Double-check that you actually have results
-                if (c.getCount() == 0) {
-                    return;
-                }
-
-                // Extract the first column of the first row of data -
-                // that is your friend's name.
-                c.moveToFirst();
-                String friend = c.getString(0);
-                mCoffee.setFriend(friend);
-                mFriendButton.setText(friend);
-            } finally {
-                c.close();
-                getActivity().finish();
+            // Double-check that you actually have results
+            if (c.getCount() == 0) {
+                return;
             }
+
+            // Extract the first column of the first row of data -
+            // that is your friend's name.
+            c.moveToFirst();
+            String friend = c.getString(0);
+            mCoffee.setFriend(friend);
+            mFriendButton.setText(friend);
+            c.close();
         }
     }
 
@@ -332,6 +331,11 @@ public class CoffeeFragment extends Fragment {
     // Sets the new time displayed on the Time button.
     private void updateTime() {
         mTimeButton.setText(DateFormat.format("h:mm a", mCoffee.getDate()));
+    }
+
+    private void deleteCoffee() {
+        CoffeeBar.get(getActivity()).deleteCoffee(mCoffee);
+        Toast.makeText(getActivity(), "Coffee Cancelled. Press Back to Return", Toast.LENGTH_LONG).show();
     }
 
     // CoffeeFragment's private "getCoffeeReport" method.
@@ -386,18 +390,17 @@ public class CoffeeFragment extends Fragment {
         switch (item.getItemId()) {
             // If the MenuItem chosen is for deleting the Coffee object, then...
             case R.id.menu_item_delete_coffee :
-                // Display a Toast telling the user that we're deleting the entry.
-                Toast.makeText(getActivity(), "Deleting entry!@!@", Toast.LENGTH_LONG).show();
                 // Directly delete the Coffee object from the CoffeeBar.
                 CoffeeBar.get(getActivity()).deleteCoffee(mCoffee);
                 // Finish the Activity cycle (to update the database).
-                getActivity().finish();
+                // Display a Toast telling the user that we're deleting the entry.
+                Toast.makeText(getActivity(), "Deleting entry.", Toast.LENGTH_LONG).show();
                 // Return.
                 //return true;
+                getActivity().finish();
             default :
                 // Otherwise, proceed as usual.
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }
