@@ -22,6 +22,8 @@ public class Coffee {
     private Date mDate;
     private boolean mComplete;
     private String mFriend;
+    private long mContactId;
+
 
     // Constructor #1
     // Creates a Coffee object with a random UUID
@@ -106,4 +108,13 @@ public class Coffee {
     public UUID getId() {
         return mId;
     }
+
+    public long getContactId() {
+        return mContactId;
+    }
+
+    public void setContactId(long contactId) {
+        mContactId = contactId;
+    }
+
 }

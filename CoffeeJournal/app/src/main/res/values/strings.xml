@@ -22,4 +22,5 @@
     <string name="coffee_report_subject">CoffeeJournal Coffee Report</string>
     <string name="coffee_delete_text">Cancel Entry</string>
     <string name="send_report">Send coffee report via</string>
+    <string name="call_friend">Call Friend</string>
 </resources>

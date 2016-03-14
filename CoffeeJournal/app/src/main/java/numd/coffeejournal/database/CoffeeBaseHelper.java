@@ -39,12 +39,14 @@ public class CoffeeBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + CoffeeTable.NAME + "(" +
-                " _id integer primary key autoincrement, " +
-                CoffeeTable.Cols.UUID + ", " +
-                CoffeeTable.Cols.TITLE + ", " +
-                CoffeeTable.Cols.DATE + ", " +
-                CoffeeTable.Cols.COMPLETE + "," +
-                CoffeeTable.Cols.FRIEND + ")"
+                        " _id integer primary key autoincrement, " +
+                        CoffeeTable.Cols.UUID + ", " +
+                        CoffeeTable.Cols.TITLE + ", " +
+                        CoffeeTable.Cols.DATE + ", " +
+                        CoffeeTable.Cols.COMPLETE + "," +
+                        CoffeeTable.Cols.FRIEND + "," +
+                        CoffeeTable.Cols.CONTACT_ID + ")"
+
         );
     }
 

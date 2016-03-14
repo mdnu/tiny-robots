@@ -117,6 +117,7 @@ public class CoffeeBar {
         values.put(CoffeeTable.Cols.DATE, coffee.getDate().getTime());
         values.put(CoffeeTable.Cols.COMPLETE, coffee.isComplete() ? 1 : 0);
         values.put(CoffeeTable.Cols.FRIEND, coffee.getFriend());
+        values.put(CoffeeTable.Cols.CONTACT_ID, coffee.getContactId());
         // Return the 'container' containing all the Coffee object's properties.
         return values;
     }

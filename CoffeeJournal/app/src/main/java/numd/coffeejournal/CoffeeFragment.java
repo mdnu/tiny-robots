@@ -83,6 +83,7 @@ public class CoffeeFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
     private static final int REQUEST_CONTACT = 2;
+    private static final int REQUEST_PHONE = 3;
 
     private Coffee mCoffee;
     private EditText mTitleField;
@@ -92,6 +93,7 @@ public class CoffeeFragment extends Fragment {
     private Button mFriendButton;
     private Button mReportButton;
     private Button mDeleteButton;
+    private Button mCallFriendButton;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
 
     // CoffeeFragment's "newInstance" method
@@ -272,7 +274,45 @@ public class CoffeeFragment extends Fragment {
             }
         });
 
+        // setup click handler for "call friend" button.
+        // Use the same Intent used for the "choose friend" button, but with our new request code.
+        mCallFriendButton = (Button)v.findViewById(R.id.call_friend);
+        mCallFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri contentUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+                String selectClause = ContactsContract.CommonDataKinds.Phone._ID + " = ?";
+                String[] fields = {ContactsContract.CommonDataKinds.Phone.NUMBER};
+                String[] selectParams = {Long.toString(mCoffee.getContactId())};
+                Cursor cursor = queryContacts(contentUri, fields, selectClause, selectParams);
+
+                if (cursor != null && cursor.getCount() >0) {
+                    try {
+                        String number = cursor.getString(0);
+                        Uri phoneNumber = Uri.parse("tel:" + number);
+                        Intent intent = new Intent(Intent.ACTION_DIAL, phoneNumber);
+                        startActivity(intent);
+                    } finally {
+                        cursor.close();
+                    }
+                }
+
+            }
+        });
+
         return v;
+    }
+
+    // Abstract method for making a contacts query
+    private Cursor queryContacts(Uri uri, String[] fields, String whereClause, String[] args) {
+        Cursor c = getActivity().getContentResolver().query(uri, fields, whereClause, args, null);
+        if (c.getCount() == 0) {
+            c.close();
+            return null;
+        }
+
+        c.moveToFirst();
+        return c;
     }
 
     // CoffeeFragment's "onActivityResult" overriding method.
@@ -301,25 +341,32 @@ public class CoffeeFragment extends Fragment {
 
         if (requestCode == REQUEST_CONTACT) {
             Uri contactUri = data.getData();
+            long contactID;
+            String phoneNumber;
             // Specify which fields you want your query to return
             // values for.
-            String [] queryFields = new String[] {
-                    ContactsContract.Contacts.DISPLAY_NAME
+            // Get the contact's display name and ID
+            String[] queryFields = {
+                    ContactsContract.Contacts.DISPLAY_NAME,
+                    ContactsContract.Contacts._ID
             };
-            // Perform your query - the contactUri is like a "where" clause here.
-            Cursor c = getActivity().getContentResolver().query(contactUri, queryFields, null, null, null);
+            // Perform your query - the contactUri is like a "where" clause here
+            Cursor c = queryContacts(contactUri, queryFields, null, null);
             // Double-check that you actually have results
-            if (c.getCount() == 0) {
+            if (c == null) {
                 return;
             }
 
-            // Extract the first column of the first row of data -
-            // that is your friend's name.
-            c.moveToFirst();
-            String friend = c.getString(0);
-            mCoffee.setFriend(friend);
-            mFriendButton.setText(friend);
-            c.close();
+            try {
+                String friend = c.getString(0);
+                contactID = c.getLong(1);
+                mCoffee.setFriend(friend);
+                mCoffee.setContactId(contactID);
+                mFriendButton.setText(friend);
+            } finally {
+                c.close();
+            }
+
         }
     }
 

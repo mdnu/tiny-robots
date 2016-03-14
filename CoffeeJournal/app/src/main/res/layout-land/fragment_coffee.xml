@@ -62,6 +62,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/coffee_report_text"/>
+        <Button
+            android:id="@+id/call_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/call_friend"/>
     </LinearLayout>
 
 </LinearLayout>
