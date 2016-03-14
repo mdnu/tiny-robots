@@ -30,39 +30,41 @@ import java.util.UUID;
 
 public class CoffeeListFragment extends Fragment {
 
-    // Displays a list of Coffee objects to the user using a RecyclerView.
-    // Not the same as 'storing' the Coffee objects. That's done in the CoffeeBar class.
-    // Hooks up the RecyclerView in fragment_coffee_list.xml to CoffeeListFragment.
-
-    // We have several fragment methods and two inner classes.
-    // Home methods:
-    // An 'updateSubtitle' method that sets the toolbar's subtitle.
-    // An 'updateUI' method that updates the values in the subtitle.
-
-    // Fragment methods:
-    // ================
-    // An 'onCreate' overriding method.
-    //  Tells the FragmentManager that our fragment should receive a call to onCreateOptionsMenu(...)
-    // An 'onCreateView' overriding method, which inflates and updates our view.
-    // An 'onResume' overriding method that updates the UI as well.
-    // An 'onSaveInstanceState' overriding method
-    // An 'onCreateOptionsMenu' overriding method that inflates a menu resource.
-    // An 'onOptionsItemSelected' overriding method that creates the options menu.
-
-    // "CoffeeAdapter" inner class (extends Adapter class).
-    // ===========================
-    // Two Adapter methods:
-    //  An 'onBindViewHolder' overriding method.
-    //  An 'onCreateViewHolder' overriding method.
-    // A 'getItemCount' overriding method.
-    // A 'CoffeeAdapter' constructor method.
-    // A 'setCoffees' setter method.
-
-    // "CoffeeHolder" inner class (extends ViewHolder, implements onClickListener)
-    // ===========================
-    // An 'onClick' method that implements onClickListener
-    // A 'CoffeeHolder' constructor which wires up the Views.
-    // A 'bindCoffee' method that sets the values for the Views.
+    /**
+     * Displays a list of Coffee objects to the user using a RecyclerView.
+     * Not the same as 'storing' the Coffee objects. That's done in the CoffeeBar class.
+     * Hooks up the RecyclerView in fragment_coffee_list.xml to CoffeeListFragment.
+     *
+     * We have several fragment methods and two inner classes.
+     * Home methods:
+     * An 'updateSubtitle' method that sets the toolbar's subtitle.
+     * An 'updateUI' method that updates the values in the subtitle.
+     *
+     * Fragment methods:
+     * ================
+     * An 'onCreate' overriding method.
+     * Tells the FragmentManager that our fragment should receive a call to onCreateOptionsMenu(...)
+     * An 'onCreateView' overriding method, which inflates and updates our view.
+     * An 'onResume' overriding method that updates the UI as well.
+     * An 'onSaveInstanceState' overriding method
+     * An 'onCreateOptionsMenu' overriding method that inflates a menu resource.
+     * An 'onOptionsItemSelected' overriding method that creates the options menu.
+     *
+     * "CoffeeAdapter" inner class (extends Adapter class).
+     * ===========================
+     * Two Adapter methods:
+     * An 'onBindViewHolder' overriding method.
+     * An 'onCreateViewHolder' overriding method.
+     * A 'getItemCount' overriding method.
+     * A 'CoffeeAdapter' constructor method.
+     * A 'setCoffees' setter method.
+     *
+     * "CoffeeHolder" inner class (extends ViewHolder, implements onClickListener)
+     * ===========================
+     * An 'onClick' method that implements onClickListener
+     * A 'CoffeeHolder' constructor which wires up the Views.
+     * A 'bindCoffee' method that sets the values for the Views.
+     */
 
     private RecyclerView mCoffeeRecyclerView;
     private CoffeeAdapter mAdapter;

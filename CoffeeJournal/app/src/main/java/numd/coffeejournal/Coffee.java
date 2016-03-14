@@ -10,10 +10,12 @@ import java.util.UUID;
 
 public class Coffee {
 
-    // Coffee objects have the following properties:
-    // a unique ID, a title, an associated date, a value for if
-    // we've completed tasting the coffee, and a chosen friend
-    // which we recommend the coffee to.
+    /**
+     * Coffee objects have the following properties:
+     * a unique ID, a title, an associated date, a value for if
+     * we've completed tasting the coffee, and a chosen friend
+     * which we recommend the coffee to.
+     */
 
     private UUID mId;
     private String mTitle;

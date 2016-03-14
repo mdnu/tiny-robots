@@ -20,18 +20,20 @@ import numd.coffeejournal.database.CoffeeDbSchema.CoffeeTable;
 
 public class CoffeeBar {
 
-    // Basically, we make Coffee objects and store them inside this class.
-    // We have the following methods:
-
-    // A constructor to create a private CoffeeBar,
-    // a public getter to get the private CoffeeBar object.
-    // A way to get a specific Coffee from the CoffeeBar using its UUID.
-    // A way to update a specific Coffee entry inside the CoffeeBar database.
-    // A helper method to package all the Coffee details into a ContentValues object.
-    // A way to query the database for a specific Coffee object.
-    // A way to add a Coffee object to the CoffeeBar database (using the helper).
-    // A way to delete a Coffee object in the CoffeeBar database.
-    // A way to get a list of Coffee objects from the database.
+    /**
+     * Basically, we make Coffee objects and store them inside this class.
+     * We have the following methods:
+     *
+     * A constructor to create a private CoffeeBar,
+     * A public getter to get the private CoffeeBar object.
+     * A way to get a specific Coffee from the CoffeeBar using its UUID.
+     * A way to update a specific Coffee entry inside the CoffeeBar database.
+     * A helper method to package all the Coffee details into a ContentValues object.
+     * A way to query the database for a specific Coffee object.
+     * A way to add a Coffee object to the CoffeeBar database (using the helper).
+     * A way to delete a Coffee object in the CoffeeBar database.
+     * A way to get a list of Coffee objects from the database.
+     */
 
     private Context mContext;
     private SQLiteDatabase mDatabase;

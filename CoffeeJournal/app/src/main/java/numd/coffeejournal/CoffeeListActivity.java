@@ -9,10 +9,12 @@ import android.support.v4.app.Fragment;
 
 public class CoffeeListActivity extends SingleFragmentActivity {
 
-    // This is the launcher activity, i.e. the first thing launched when we start the app.
-    // It hosts the CoffeeListFragment. i.e. Activity hosting a Fragment. (
-    // The class extends SingleFragmentActivity, so it inherits an onCreate method,
-    // which inflates the activity View and creates a FragmentManager for CoffeeListFragment.
+    /**
+     * This is the launcher activity, i.e. the first thing launched when we start the app.
+     * It hosts the CoffeeListFragment. i.e. Activity hosting a Fragment.
+     * The class extends SingleFragmentActivity, so it inherits an onCreate method,
+     * which inflates the activity View and creates a FragmentManager for CoffeeListFragment.
+     */
 
     @Override
     protected Fragment createFragment() {

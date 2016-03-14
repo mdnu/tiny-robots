@@ -20,28 +20,30 @@ import java.util.UUID;
 
 public class CoffeePagerActivity extends AppCompatActivity {
 
-    // Host the CoffeeFragment activity.
-    // That is, CoffeePagerActivity hosts the CoffeeFragment activity.
-
-    // Consists of an instance of ViewPager, which lets users navigate
-    // between list items via swiping across the screen forwards/backwards
-    // through Coffee entries.
-
-    // We have the following methods:
-    // An 'onCreate' method which overrides the AppCompatActivity onCreate,
-    //  This inflates the view, sets up the pager adapter and hosts the CoffeeFragment.
-    // A 'newIntent' method which creates explicit intents for communicating with other
-    //  control classes.
+    /**
+     * Hosts the CoffeeFragment activity.
+     * That is, CoffeePagerActivity hosts the CoffeeFragment activity.
+     * Consists of an instance of ViewPager, which lets users navigate
+     * between list items via swiping across the screen forwards/backwards
+     * through Coffee entries.
+     * We have the following methods:
+     * An 'onCreate' method which overrides the AppCompatActivity onCreate,
+     * This inflates the view, sets up the pager adapter and hosts the CoffeeFragment.
+     * A 'newIntent' method which creates explicit intents for communicating with other
+     * control classes.
+     */
 
     private static final String EXTRA_COFFEE_ID = "whatever";
     private ViewPager mViewPager;
     private List<Coffee> mCoffees;
 
-    // CoffeePagerActivity's "newIntent" method.
-    // This intent is meant to start CoffeePagerActivity, using some extra info.
-    // Creates a new intent with extra content which passes the UUID of the Coffee object.
-    // Basically, this method is called from outside classes to start the CoffeePagerActivity
-    // with a specified initial Coffee UUID to start with.
+    /**
+     * CoffeePagerActivity's "newIntent" method.
+     * This intent is meant to start CoffeePagerActivity, using some extra info.
+     * Creates a new intent with extra content which passes the UUID of the Coffee object.
+     * Basically, this method is called from outside classes to start the CoffeePagerActivity
+     * with a specified initial Coffee UUID to start with.
+     */
     public static Intent newIntent(Context packageContext, UUID coffeeId) {
         Intent intent = new Intent(packageContext, CoffeePagerActivity.class);
         // Pass in a string key and the value which the key maps to (the coffeeId).
@@ -51,7 +53,9 @@ public class CoffeePagerActivity extends AppCompatActivity {
         return intent;
     }
 
-    // CoffeePagerActivity's 'onCreate' method.
+    /**
+     * CoffeePagerActivity's 'onCreate' method.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Inflate the View.
@@ -68,10 +72,12 @@ public class CoffeePagerActivity extends AppCompatActivity {
         // 'activity_coffee_pager_view_pager'.
         mViewPager = (ViewPager)findViewById(R.id.activity_coffee_pager_view_pager);
 
-        // IMPORTANT
-        // Host the CoffeeFragment.
-        // How: Get the List of Coffees from the CoffeeBar taken from the
-        // savedInstanceState using "this" activity's Context.
+        /**
+         * IMPORTANT
+         * Host the CoffeeFragment.
+         * How: Get the List of Coffees from the CoffeeBar taken from the
+         * savedInstanceState using "this" activity's Context.
+         */
         mCoffees = CoffeeBar.get(this).getCoffees();
         // Create a new FragmentManager and...
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -104,7 +110,7 @@ public class CoffeePagerActivity extends AppCompatActivity {
         });
 
         // Loop through Coffee UUIDs until we find the instance whose UUID 'mId' matches
-        // the intent extra's coffee UUID. Once found, we set the ViewPager to display that item.
+        // the intent extras' coffee UUID. Once found, we set the ViewPager to display that item.
         for (int i = 0; i < mCoffees.size(); i++) {
             if (mCoffees.get(i).getId().equals(coffeeId)) {
                 mViewPager.setCurrentItem(i);

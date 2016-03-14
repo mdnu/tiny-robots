@@ -35,45 +35,47 @@ import java.util.UUID;
 
 public class CoffeeFragment extends Fragment {
 
-    // Allows user interaction with Coffee objects.
-    // i.e. The Fragment with "Project Title" and "Coffee Details".
-    // Basically, the CoffeeFragment displays details of a Coffee object and interacts
-    // with the View layer to update/change the properties of the Coffee object.
-    // These are the Fragments that CoffeePagerActivity displays.
-
-    // We have the following methods:
-    // (Creates Fragments). A static newInstance method
-    //  to create a Fragment instance using a given Coffee UUID,
-    //  setting the arguments of the Fragment, and then returning the configured Fragment.
-
-    // (Creates and displays the Coffee View). A public 'onCreate' overriding method.
-    //  This method extracts the UUID of the Coffee from 'ARG_COFFEE_ID', gets the Coffee
-    //  from the CoffeeBar (using its get method) which returns the CoffeeBar.
-    //  method is public so that any activity hosting CoffeeFragment can call it.
-
-    // (Updating method). An 'onPause' overriding method
-    //  which, when called, pushes any updates made to the
-    //  current viewed Coffee object to the CoffeeLab.
-
-    // (Creates View). An 'onCreateView' overriding method
-    //  which creates, configures and returns the View.
-    //  We'll explain below.
-
-    // (Updates Buttons). An 'onActivityResult' overriding method.
-    //  which retrieves the Intent's extra, sets the date on the Coffee object,
-    //  and refreshes the text of the date button. We'll explain below.
-
-    // Two helper methods, updateDate and updateTime
-    //  which updates the dates and time on the date and time buttons.
-
-    // (Generates report). A private 'getCoffeeReport' method.
-    //  which generates a report for the Coffee object. We'll explain below.
-
-    // (Top Menu Inflater). An 'onCreateOptionsMenu' overriding method
-    //  which inflates the secondary menu. i.e. the top menu, which contains the delete button.
-
-    // (Entry Deletion Functionality). An 'onOptionsItemSelected' overriding method
-    //  which allows for entry deletion. i.e. it's related to the above method. We'll explain below.
+    /**
+     * Allows user interaction with Coffee objects.
+     * i.e. The Fragment with "Project Title" and "Coffee Details".
+     * Basically, the CoffeeFragment displays details of a Coffee object and interacts
+     * with the View layer to update/change the properties of the Coffee object.
+     * These are the Fragments that CoffeePagerActivity displays.
+     *
+     * We have the following methods:
+     * (Creates Fragments). A static newInstance method
+     * to create a Fragment instance using a given Coffee UUID,
+     * setting the arguments of the Fragment, and then returning the configured Fragment.
+     *
+     * (Creates and displays the Coffee View). A public 'onCreate' overriding method.
+     * This method extracts the UUID of the Coffee from 'ARG_COFFEE_ID', gets the Coffee
+     * from the CoffeeBar (using its get method) which returns the CoffeeBar.
+     * method is public so that any activity hosting CoffeeFragment can call it.
+     *
+     * (Updating method). An 'onPause' overriding method
+     * which, when called, pushes any updates made to the
+     * current viewed Coffee object to the CoffeeLab.
+     *
+     * (Creates View). An 'onCreateView' overriding method
+     *  which creates, configures and returns the View.
+     *  We'll explain below.
+     *
+     * (Updates Buttons). An 'onActivityResult' overriding method.
+     *  which retrieves the Intent's extra, sets the date on the Coffee object,
+     *  and refreshes the text of the date button. We'll explain below.
+     *
+     *  Two helper methods, updateDate and updateTime
+     *   which updates the dates and time on the date and time buttons.
+     *
+     * (Generates report). A private 'getCoffeeReport' method.
+     *  which generates a report for the Coffee object. We'll explain below.
+     *
+     * (Top Menu Inflater). An 'onCreateOptionsMenu' overriding method
+     *  which inflates the secondary menu. i.e. the top menu, which contains the delete button.
+     *
+     * (Entry Deletion Functionality). An 'onOptionsItemSelected' overriding method
+     *  which allows for entry deletion. i.e. it's related to the above method. We'll explain below.
+     */
 
     private static final String ARG_COFFEE_ID = "whatever";
     private static final String DIALOG_DATE = "whatever";

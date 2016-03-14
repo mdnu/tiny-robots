@@ -17,12 +17,14 @@ import numd.coffeejournal.database.CoffeeDbSchema.CoffeeTable;
 
 public class CoffeeBaseHelper extends SQLiteOpenHelper {
 
-    // This class is called by the CoffeeBar constructor
-    // in order to make a database of Coffee objects.
-    // It extends SQLiteOpenHelper, so the CoffeeBar constructor
-    // passes into CoffeeBaseHelper's constructor the application's
-    // Context, and uses the inherited 'getWriteableDatabase' method
-    // to create a database.
+    /**
+     * This class is called by the CoffeeBar constructor
+     * in order to make a database of Coffee objects.
+     * It extends SQLiteOpenHelper, so the CoffeeBar constructor
+     * passes into CoffeeBaseHelper's constructor the application's
+     * Context, and uses the inherited 'getWriteableDatabase' method
+     * to create a database.
+     */
 
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "coffeeBase.db";

@@ -15,9 +15,11 @@ import java.util.GregorianCalendar;
 
 public class DatePickerFragment extends DialogPickerFragment {
 
-    // Allows for picking a date from a calendar View.
-    // "DatePickerFragment" is subclass of "DialogPickerFragment",
-    // which is itself a subclass of DialogFragment.
+    /**
+     * Allows for picking a date from a calendar View.
+     * "DatePickerFragment" is subclass of "DialogPickerFragment",
+     * which is itself a subclass of DialogFragment.
+     */
 
     private DatePicker mDatePicker;
 
