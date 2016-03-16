@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -83,7 +85,6 @@ public class CoffeeFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
     private static final int REQUEST_CONTACT = 2;
-    private static final int REQUEST_PHONE = 3;
 
     private Coffee mCoffee;
     private EditText mTitleField;
@@ -95,6 +96,8 @@ public class CoffeeFragment extends Fragment {
     private Button mDeleteButton;
     private Button mCallFriendButton;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("cccc, MMMM d, yyyy");
+    private ImageButton mPhotoButton;
+    private ImageView mPhotoView;
 
     // CoffeeFragment's "newInstance" method
     // A static method to create fragments using a given Coffee object UUID.
@@ -265,6 +268,9 @@ public class CoffeeFragment extends Fragment {
             // disable the friend button.
             mFriendButton.setEnabled(false);
         }
+
+        mPhotoButton = (ImageButton)v.findViewById(R.id.coffee_camera);
+        mPhotoView = (ImageView)v.findViewById(R.id.coffee_photo);
 
         mDeleteButton = (Button)v.findViewById(R.id.coffee_delete);
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
