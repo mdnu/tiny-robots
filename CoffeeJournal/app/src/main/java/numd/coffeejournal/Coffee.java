@@ -117,4 +117,8 @@ public class Coffee {
         mContactId = contactId;
     }
 
+    public String getPhotoFileName() {
+        return "IMG_" + getId().toString() + ".jpg";
+    }
+
 }

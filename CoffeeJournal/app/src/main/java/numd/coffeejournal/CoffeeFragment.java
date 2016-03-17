@@ -269,6 +269,8 @@ public class CoffeeFragment extends Fragment {
             mFriendButton.setEnabled(false);
         }
 
+        // Added ViewButton references
+        // Currently unwired
         mPhotoButton = (ImageButton)v.findViewById(R.id.coffee_camera);
         mPhotoView = (ImageView)v.findViewById(R.id.coffee_photo);
 

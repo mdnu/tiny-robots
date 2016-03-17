@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -86,6 +88,16 @@ public class CoffeeBar {
         } finally {
             cursor.close();
         }
+    }
+
+    public File getPhotoFile(Coffee coffee) {
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        if (externalFilesDir == null) {
+            return null;
+        }
+
+        return new File(externalFilesDir, coffee.getPhotoFileName());
     }
 
     // CoffeeBar's "updateCoffee" method.
